@@ -1,0 +1,113 @@
+<h1 class="page-header">
+                    Data Mahasiswa
+                    </h1>
+<form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+</form>
+<?php 
+	  @session_start();
+	  
+	  if ((isset($_SESSION['username'])) and ($_SESSION['status']=='mahasiswa'))  { ?>
+
+<div class="table-responsive">
+ <table class="table table-bordered table-hover table-striped">
+
+  
+    <thead>
+    <tr>
+      <td width="89" rowspan="2">NIM</td>
+      <td width="161" rowspan="2">NAMA</td>
+      <td width="225" rowspan="2">PRODI</td>
+      <td width="78" rowspan="2">SEMESTER</td>
+      <td width="50" rowspan="2">KELAS</td>
+      <td colspan="2"><P align="center">MENU</P></td>
+    </tr>
+    <tr>
+      <td width="66">EDIT</td>
+      <td width="55">HAPUS</td>
+    </tr>
+    </thead>
+    <tbody>
+<?php
+if(isset($_GET['page']))
+{
+    $noPage = $_GET['page'];
+} 
+else $noPage = 1;
+$pr= $_GET['prodi']
+// perhitungan offset
+$dataPerPage = 32;
+$offset = ($noPage - 1) * $dataPerPage;
+require"config.php";
+if 
+$ambildata=mysql_query("SELECT * FROM data_mhsw order by nim ASC LIMIT $offset, $dataPerPage");
+  while ($isi=mysql_fetch_array($ambildata)){
+  $nim=$isi['nim'];
+$nama=$isi['nama'];
+$prodi=$isi['prodi'];
+$sms=$isi['semester'];
+$kelas=$isi['kelas'];
+
+?>
+
+    <tr>
+      <td><?php echo $nim ?></td>
+      <td><?php echo $nama ?></td>
+      <td><?php echo $prodi ?></td>
+      <td><?php echo $sms ?></td>
+      <td><?php echo $kelas ?></td>
+      <td><a href="?menu=edit&amp;nim=<?php echo $nim ?>">Edit</a></td>
+      <td><a href="hapus.php?&amp;nim=<?php echo $nim ?>">Hapus</a></td>
+    </tr>
+  
+
+ 
+<?php
+   
+
+  }
+  ?>
+
+  </tbody>
+</table>
+  <center>
+  <?php
+  $query   = "SELECT COUNT(*) AS jumData FROM data_mhsw where nim='141331023'";
+$hasil  = mysql_query($query);
+$data     = mysql_fetch_array($hasil);
+
+$jumData = $data['jumData'];
+
+// menentukan jumlah halaman yang muncul berdasarkan jumlah semua data
+
+$jumPage = ceil($jumData/$dataPerPage);
+
+// menampilkan link previous
+
+if ($noPage > 1) echo  "<a href='".$_SERVER['PHP_SELF']."?page=".($noPage-1)."'>Prev</a>";
+
+// memunculkan nomor halaman dan linknya
+
+for($page = 1; $page <= $jumPage; $page++)
+{
+         if ((($page >= $noPage - 1) && ($page <= $noPage + 1)) || ($page == 1) || ($page == $jumPage)) 
+         {   
+            if ((@$showPage == 1) && (@$page != 1))  echo ""; 
+            if ((@$showPage != ($jumPage - 1)) && (@$page == $jumPage))  echo "-...";
+            if ($page == $noPage) echo " -<b>".$page."</b> ";
+            else echo " - <a href='".$_SERVER['PHP_SELF']."?page=".$page."'>".$page."</a> ";
+            $showPage = $page;          
+         }
+}
+
+// menampilkan link next
+
+if ($noPage < $jumPage) echo "<a href='".$_SERVER['PHP_SELF']."?page=".($noPage+1)."'>Next &gt;&gt;</a>";
+?></center>
+</div>
+
+	  <?php } else {
+	
+		  echo"login dulu gan...";
+		  
+	  }
+	  ?>

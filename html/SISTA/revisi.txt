@@ -1,0 +1,39 @@
+Deadline 30
+Mahasiswa:
+Halaman 1 (Login)
+Username: NIM; Password: default
+
+Halaman 2
+Header nama, nim dan kelas
+Data TA (Judul TA, Abstrak TA (max 250),Keywords, Pembimbing TA, Judul PKM POLBAN, pembimbing dan Status (Button), Judul PKM Belmawa pembimbing dan Status (Button))
+
+Upload proposal TA (preview dan download PDF (limit 5 MByte) dan download docx (limit 20 MByte))
+Counter count down waktu deadline upload (tidak bisa upload bisa login)
+Status Upload file pada tabel DB
+
+Upload lembar pengesahan (PDF)
+
+PR:Data mahasiswa angkatan th 2015/2016 (minta bu Vonny hari ini)
+
+ProposalTA_kelas_noUrut_nama_RX(X=revisi ke-)
+
+Panitia:
+Username: Kode Dosen; Password: default
+
+Akses:
+Kolom 3: berkas yang diunggah
+1. proposal TA (1) 
+2. Lembar Pengesahan (0)
+
+keterangan oke disetiap field
+
+countdown
+29 jan : pengurusan hosting web di server polban oleh kajur(pa malayusfi), sosialisasi timeline pendaftaran TA oleh pa tri (ketua TA)
+30 jan : uji coba fitur website online, saran perbaikan oleh panitia
+31 januari : release website pendaftaran TA, countdown berjalan s.d 1 feb
+1 feb pukul 23.59 : proses pra pendaftaran TA Selesai
+4 feb : hasil review panitia keluar ,mahasiswa memperbaiki data pra pendaftaran sesuai arahan  panitia
+countdown berjalan s.d tgl 8 februari pukul 23.59
+8 feb pukul 23.59 :proses pendaftaran final TA selesai : judul proposal fix,isi proposal fix(ditandai dengan diuploadnya proposal revisi), 
+Pembimbing fix (ditandai dengan upload lembar persetujuan pembimbing TA)
+11 feb :semester genap berjalan, proses dan bimbingan TA dimulai

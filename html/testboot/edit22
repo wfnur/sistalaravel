@@ -1,0 +1,9 @@
+<?php
+mysql_connect("localhost","root","");
+mysql_select_db("elec");
+$nim=$_POST['nim'];
+$pass=hash('sha512',$_POST['pass'];
+
+$proses=mysql_query("update data_mhsw set password=$pass where nim='$nim'");
+if($proses){echo"<script>alert ('<?php echo $pass?>'); document.location.href='index.php?menu=profile'; </script>";}else{echo"gagal";}
+?> 

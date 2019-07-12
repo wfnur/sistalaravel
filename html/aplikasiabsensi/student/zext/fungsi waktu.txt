@@ -1,0 +1,2 @@
+<td><?php echo date("h:i a", strtotime($f_time['time']))?></td>
+							<td><?php echo date("d-m-Y", strtotime($f_time['date']))?></td>
