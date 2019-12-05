@@ -25,7 +25,7 @@ class laporanTAController extends Controller
         $sekarang = date('Y-m-d H:i:s');
 
         // jika sudah melebih deadline maka
-        if ($sekarang <= $deadline->tanggal) {
+        if ($sekarang >= $deadline->tanggal) {
             $disable = "readonly";
         }else{
             $disable = "";
@@ -57,6 +57,17 @@ class laporanTAController extends Controller
         }
     }
 
+    public function createRevisi(){
+        $cekdata = laporanTA::where('nim', '=', Auth::user()->username)->first();
+
+        if ($cekdata->laporanrevisipdf == "") {
+            return view('LaporanTA.createRevisi');
+        }else{
+            $laporanTA = laporanTA::where('nim', '=', Auth::user()->username)->first();
+            return view('LaporanTA.editRevisi',compact('laporanTA'));
+        }
+    }
+
     public function store(Request $request){
 
         //cari deadline idnya 3 (upload laporan final)
@@ -64,7 +75,7 @@ class laporanTAController extends Controller
         $sekarang = date('Y-m-d H:i:s');
 
         // jika sudah melebih deadline maka
-        if ($sekarang <= $deadline->tanggal) {
+        if ($sekarang >= $deadline->tanggal) {
             return redirect()->back()->with('gagal','Batas Waktu Sudah Habis');
         }else{
             $laporanTA = laporanTA::updateOrCreate([
@@ -204,6 +215,48 @@ class laporanTAController extends Controller
 
     }
 
+    public function storeRevisi(Request $request){
+        if ($request->hasFile('laporandoc')) {
+            $imgName = generateNamaLaporanTA(Auth::user()->username,$request->file('laporandoc')->getClientOriginalExtension());
+            $fileLaporan = $request->file('laporandoc');
+            $fileLaporan->storeAs('public/Berkas_LaporanTA', $imgName);
+            //$request->file('laporanTA')->move('public/Berkas_LaporanTA/',$imgName);
+
+            $laporanTAUpload = laporanTA::updateOrCreate([
+                'nim'   => Auth::user()->username,
+            ],[
+                'laporandoc' => $imgName,
+                
+            ]);
+
+            if(!$laporanTAUpload){
+                return redirect()->back()->with('gagal','Gagal Upload Lampiran Diubah/Disimpan');
+            }
+        }
+
+        if ($request->hasFile('laporanrevisipdf')) {
+            $imgName = generateNamaLaporanTA(Auth::user()->username,$request->file('laporanrevisipdf')->getClientOriginalExtension());
+            $fileLaporan = $request->file('laporanrevisipdf');
+            $fileLaporan->storeAs('public/Berkas_LaporanTA', $imgName);
+            //$request->file('laporanTA')->move('public/Berkas_LaporanTA/',$imgName);
+
+            $laporanTAUpload = laporanTA::updateOrCreate([
+                'nim'   => Auth::user()->username,
+            ],[
+                'laporanrevisipdf' => $imgName,
+                
+            ]);
+
+            if(!$laporanTAUpload){
+                return redirect()->back()->with('gagal','Gagal Upload Lampiran Diubah/Disimpan');
+            }
+            
+        }
+
+        return redirect()->back()->with('sukses','Data Berhasil Diubah/Disimpan');
+
+    }
+
     public function listMahasiswa(){
         $listmhs = JadwalSidang::Where('ketua_penguji','=',Auth::user()->username)
         ->orWhere('penguji1','=',Auth::user()->username)
@@ -211,6 +264,16 @@ class laporanTAController extends Controller
         ->get();
         //return dd($listmhs);
         return view('LaporanTA.ListPenilaianTA',compact('listmhs'));
+    }
+
+    public function listMahasiswa_revisi(){
+        $listmhs = JadwalSidang::Where('ketua_penguji','=',Auth::user()->username)
+        ->orWhere('penguji1','=',Auth::user()->username)
+        ->orWhere('penguji2','=',Auth::user()->username)
+        ->orWhere('pembimbing','=',Auth::user()->username)
+        ->get();
+        //return dd($listmhs);
+        return view('LaporanTA.listMahasiswa_revisi',compact('listmhs'));
     }
 
     public function penilaianLaporan(Request $request, $nim){
@@ -386,6 +449,13 @@ class laporanTAController extends Controller
         return response()->download($path, $name);
     }
 
+    public function downloadfileRevisi(Request $request, $nama){
+        $name = str_random(5).".pdf";
+        $path = public_path().'/storage/Berkas_LaporanTA/'.$nama;
+        //dd($name);
+        return response()->file($path,$name);
+    }
+
     public function unlocknilailaporan(Request $request){
         $revisiLaporan = revisiLaporan::where('nim','=',$request->nim)
         ->where('kode_dosen','=',$request->kode_dosen)
@@ -460,5 +530,55 @@ class laporanTAController extends Controller
         
         
         
+    }
+
+    public function revisiLaporan(Request $request, $nim){
+        // LAPORAN TUGAS AKHIR
+        $laporanTA = laporanTA::where('nim','=', $nim)->first();
+
+        // AMBIL DATA DARI JADWAL SIDANG
+        $jadwalSidang = JadwalSidang::where('nim','=',$nim)
+        ->Where(function ($query) {
+            $query->where('ketua_penguji','=',Auth::user()->username)
+                ->orWhere('penguji1','=',Auth::user()->username)
+                ->orWhere('penguji2','=',Auth::user()->username);
+        })
+        ->first();
+
+        if(auth()->user()->username == $jadwalSidang->ketua_penguji){
+            $statusDosen = "Ketua Penguji";
+        }elseif(auth()->user()->username == $jadwalSidang->penguji1){
+            $statusDosen = "Penguji 1 ";
+        }elseif(auth()->user()->username == $jadwalSidang->penguji2){
+            $statusDosen = "Penguji 2 ";
+        }else{
+            $statusDosen = "error";
+        }
+
+       
+        // REVISI LAPORAN
+        $revisiLaporan = revisiLaporan::where('nim','=',$nim)
+        ->where('kode_dosen','=',Auth::user()->username)
+        ->first();
+
+        return view('LaporanTA.revisiLaporan',compact('laporanTA','statusDosen','revisiLaporan','nim'));
+    }
+
+    public function saveRevisiLaporan2(Request $request){
+        $revisiLaporan = revisiLaporan::updateOrCreate([
+            //Add unique field combo to match here
+            //For example, perhaps you only want one entry per user:
+            'nim'   => $request->nim,
+            'kode_dosen' => $request->kode_dosen,
+        ],[
+            'revisi'   => $request->get('revisi'),
+            'status_revisi'   => $request->get('status_revisi'),
+        ]);
+
+        if (!$revisiLaporan) {
+            return redirect()->back()->with('gagal','Data Gagal Diubah/Disimpan');
+        }else{
+            return redirect()->back()->with('sukses','Data Berhasil Diubah/Disimpan');
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\bimbingan;
 use Illuminate\Http\Request;
-use \App\MingguBimbingan;
+use \App\mingguBimbingan;
 use Illuminate\Support\Carbon;
 use Auth;
 use Illuminate\Http\File;

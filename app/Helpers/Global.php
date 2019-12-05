@@ -437,13 +437,43 @@ function cekNilaiLaporanDosen($nim, $kode_dosen){
     return $status;
 }
 
+function cekNilaiDosen($nim, $kode_dosen){
+    $nilaiLaporan = \App\nilaiSidangTA::where('nim','=',$nim)
+    ->where('kode_dosen','=',$kode_dosen)
+    ->first();
+
+    if(count($nilaiLaporan) > 0){
+        $status = "<i class='fa fa-check-circle-o fa-2x text-success'><i>";
+    }else{
+        $status = "<i class='fa fa-remove fa-2x text-danger'><i>";
+    }
+    return $status;
+}
+
 function cekFinalisasiNilaiLaporanDosen($nim, $kode_dosen){
     $revisiLaporan = revisiLaporan::where('nim','=',$nim)
     ->where('kode_dosen','=',$kode_dosen)
     ->first();
 
-    if(isset($revisiLaporan)){
+    if(count($revisiLaporan) > 0){
         if($revisiLaporan->status == 1){
+            $status = "<button class='btn' id='{{$nim}}'><i class='fa fa-lock fa-2x text-danger'></i></button>";
+        }else{
+            $status = "<i class='fa fa-unlock fa-2x text-success'></i>";
+        }
+    }else{
+        $status = "<i class='fa fa-unlock fa-2x text-success'></i>";
+    }
+    return $status;
+}
+
+function cekFinalisasiNilaiSidangDosen($nim, $kode_dosen){
+    $revisiLaporan = revisiLaporan::where('nim','=',$nim)
+    ->where('kode_dosen','=',$kode_dosen)
+    ->first();
+
+    if(count($revisiLaporan) > 0){
+        if($revisiLaporan->status_nilaiSidang == 1){
             $status = "<button class='btn' id='{{$nim}}'><i class='fa fa-lock fa-2x text-danger'></i></button>";
         }else{
             $status = "<i class='fa fa-unlock fa-2x text-success'></i>";
@@ -552,6 +582,7 @@ function hitungNilaiPenguji($nim){
                 $Arr_nilaiKaliBobot[] = $nilai_akhir*$value->bobot;
                 //echo "Nilai Total :".$nilai_akhir." x ".$value->bobot." = ".$nilaiKaliBobot."<br>";
                 unset($Arr_nilaiBaru);
+                unset($Arr_nilai);
 
                 //echo "<br>";
             }
@@ -694,5 +725,15 @@ function pembagiNilaiLaporan($nim){
         $nilai[] = $value->bobot * 10;
     }
     return array_sum($nilai);
+}
+
+function cekRevisiLaporan($nim,$kode_dosen){
+    $revisiLaporan = revisiLaporan::where('nim','=',$nim)
+    ->where('kode_dosen','=',$kode_dosen)
+    ->first();
+
+    $status_revisi = $revisiLaporan->status_revisi;
+
+    return $status_revisi;
 }
 ?>

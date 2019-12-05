@@ -16,7 +16,7 @@
     <table  style="width: 100%">
         <tr>
             <td style="border: 1px solid black;">&nbsp;&nbsp;
-                <img src="{{asset('Images/logo_polban.png')}}" height ="70px;" style="margin-top:10px;margin-left:18px"></td>
+                <img src="/var/www/html/SISTA/public/Images/logo_polban.jpg" height ="70px;" style="margin-top:10px;margin-left:18px"></td>
             <td style="border-top: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;">
                <table  style="margin:0 auto;">
                     <tr>
@@ -105,7 +105,7 @@
             <td style="text-align: center">A</td>
             <td>Nilai Pembimbing</td>
             <td style="text-align: center">45</td>
-            <td style="text-align: center">{{$nilai_pembimbing_all}}</td>
+            <td style="text-align: center">{{$nilai_pembimbing}}</td>
         </tr>
         <tr>
             <td style="text-align: center">B</td>
@@ -118,6 +118,12 @@
             <td>Nilai Laporan</td>
             <td style="text-align: center">15</td>
             <td style="text-align: center">{{$nilai_laporanFIX}}</td>
+        </tr>
+        <tr>
+            <td style="text-align: center">D</td>
+            <td>Nilai Bonus</td>
+            <td style="text-align: center">13</td>
+            <td style="text-align: center">{{$nilai_bonus}}</td>
         </tr>
         
         <tr>
@@ -152,9 +158,13 @@
 
     @php
     if ($total_nilai <=100 and $total_nilai >=80) {
-        $lulus ="<b>LULUS</b>
-        <span style='text-decoration:line-through'>/LULUS BERSYARAT/TUNDA</span>
-        ";
+        if($status_revisi == "kosong"){
+            $lulus ="<b>LULUS</b>
+            <span style='text-decoration:line-through'>/LULUS BERSYARAT/TUNDA</span>";
+        }else{
+            $lulus ="<span style='text-decoration:line-through'>LULUS</span>
+            /<b>LULUS BERSYARAT</b>/<span style='text-decoration:line-through'>TUNDA</span>";
+        }
     }elseif($total_nilai < 80 and $total_nilai >=60){
         $lulus ="<span style='text-decoration:line-through'>LULUS</span>
         /<b>LULUS BERSYARAT</b>/<span style='text-decoration:line-through'>TUNDA</span>
@@ -175,51 +185,50 @@
         Majelis Sidang Tugas Akhir,
     </div>
 
-    <table  style="width: 109%;margin-left:-30px;">
+    <table  style="width: 109%;margin-left:-20px;">
         <tr>
             <td>
                 <div style="text-align: center;">
-                    Ketua Sidang,<br>
-                    Pendamping
+                    Ketua Sidang,
                 </div>
-                <br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br>
 
                 <div style="text-align: left;">
-                    <span style='font-size:14px;'>{{$jadwalSidang->ketua_pengujiRelasi->nama}}</span><br>
-                    NIP:{{$jadwalSidang->ketua_pengujiRelasi->nip}}
+                    <span style='font-size:12px;'>{{$jadwalSidang->ketua_pengujiRelasi->nama}}<br>
+                    NIP:{{$jadwalSidang->ketua_pengujiRelasi->nip}}</span>
                 </div>
             </td>
             <td>
                 <div style="text-align: center;">
                    <center> Penguji I</center>
                 </div>
-                <br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br>
 
                 <div style="text-align: left;">
-                    <span style='font-size:14px;'>{{$jadwalSidang->penguji1Relasi->nama}}</span><br>
-                    NIP:{{$jadwalSidang->penguji1Relasi->nip}}
+                    <span style='font-size:12px;'>{{$jadwalSidang->penguji1Relasi->nama}}<br>
+                    NIP:{{$jadwalSidang->penguji1Relasi->nip}}</span>
                 </div>
             </td>
             <td>
                 <div style="text-align: center;">
                     <center>Penguji II</center>
                 </div>
-                <br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br>
 
                 <div style="text-align: left;">
-                    <span style='font-size:14px;'>{{$jadwalSidang->penguji2Relasi->nama}}</span><br>
-                    NIP:{{$jadwalSidang->penguji2Relasi->nip}}
+                    <span style='font-size:12px;'>{{$jadwalSidang->penguji2Relasi->nama}}<br>
+                    NIP:{{$jadwalSidang->penguji2Relasi->nip}}</span>
                 </div>
             </td>
             <td>
                 <div style="text-align: center;">
                    <center> Pembimbing </center>
                 </div>
-                <br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br>
 
                 <div style="text-align: left;">
-                    <span style='font-size:14px;'>{{$jadwalSidang->pembimbingRelasi->nama}}</span><br>
-                    NIP:{{$jadwalSidang->pembimbingRelasi->nip}}
+                    <span style='font-size:12px;'>{{$jadwalSidang->pembimbingRelasi->nama}}<br>
+                    NIP:{{$jadwalSidang->pembimbingRelasi->nip}}</span>
                 </div>
             </td>
         </tr>

@@ -72,6 +72,41 @@
         
     </div>
     <!-- /.row (main row) -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-default">
+                <div class="card-header bg-warning">
+                    <h3 class="card-title">
+                        <i class="fa fa-bullhorn"></i>
+                        Revisi
+                    </h3>
+                </div>
+
+                <div class="card-body">
+                @foreach ($revisi as $item)
+                    @php 
+                    $statusRev = cekRevisiLaporan(auth()->user()->username,$item->kode_dosen); 
+                    //dd($item->kode_dosen);
+                    
+                    @endphp
+                    <div class="callout callout-warning">
+                        <h5>{{$item->dosen->nama}} 
+                        @if ($statusRev == 1)
+                        <span class="btn btn-success"> Tidak Ada Revisi</span>
+                        @else
+                        <span class="btn btn-danger"> Masih Harus Revisi</span>
+                        @endif  
+                        </h5>
+                        <p>{!! $item->revisi !!}</p>
+                    </div>
+                @endforeach
+                </div>
+            
+            
+            </div>
+        </div>
+    </div>
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->   

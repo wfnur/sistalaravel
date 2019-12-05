@@ -117,12 +117,12 @@ class sidangTAController extends Controller
             $statusDosen = "Pembimbing ";
             if (isset($revisiLaporan->status_nilaiSidang)) {
                 if($revisiLaporan->status_nilaiSidang == 1){
-                    return view('SidangTA.fixNilaiSidangTA_pembimbing',compact('statusDosen','laporanTA','poinPenilaianSTA_Pembimbing','nim'));
+                    return view('SidangTA.fixNilaiSidangTA_pembimbing',compact('revisiLaporan','statusDosen','laporanTA','poinPenilaianSTA_Pembimbing','nim'));
                 }else{
-                    return view('SidangTA.penilaianSidangTA_pembimbing',compact('statusDosen','laporanTA','poinPenilaianSTA_Pembimbing','nim'));
+                    return view('SidangTA.penilaianSidangTA_pembimbing',compact('revisiLaporan','statusDosen','laporanTA','poinPenilaianSTA_Pembimbing','nim'));
                 }
             }else{
-                return view('SidangTA.penilaianSidangTA_pembimbing',compact('statusDosen','laporanTA','poinPenilaianSTA_Pembimbing','nim'));
+                return view('SidangTA.penilaianSidangTA_pembimbing',compact('revisiLaporan','statusDosen','laporanTA','poinPenilaianSTA_Pembimbing','nim'));
             }
             
         }else{
@@ -235,19 +235,37 @@ class sidangTAController extends Controller
 
         //nilai Laporan
         $nilai_laporan = round(hitungNilaiLaporan($request->nim),2);
-        $nilai_laporanFIX = ($nilai_laporan/$pembagi)*15;
+        $nilai_laporanFIX = round(($nilai_laporan/$pembagi)*15,2);
 
         $hari =  Carbon::now()->formatLocalized('%A');
         $tanggal = Carbon::now()->formatLocalized('%d %B %Y');
 
-        $nilai_pembimbing_all = $nilai_pembimbing + $nilai_pkm + $nilai_publikasi ;
-        
-        $total_nilai = $nilai_pembimbing_all  + $nilai_laporanFIX + $nilai_penguji;
+        $nilai_bonus = $nilai_pkm + $nilai_publikasi ;
+        $total_nilai = $nilai_pembimbing  + $nilai_laporanFIX + $nilai_penguji + $nilai_bonus;
 
-        if($total_nilai > 100){
-            $total_nilai = 100;
+        if($total_nilai >= 98.75){
+            $total_nilai = 98.75;
         }
-        
+
+        //revisi
+        $revisi = revisiLaporan::where('nim','=',$request->nim)
+        ->get();
+        $i=0;
+        foreach ($revisi as $key) {
+            if($key->revisi == ""){
+                $statusRevisi[$i] = 0 ;
+            }else{
+                $statusRevisi[$i] = 1 ;
+            }
+        $i++;
+        }
+
+        $hitung_array = array_count_values($statusRevisi);
+        if ( isset( $hitung_array[1] ) ) {
+            $status_revisi =  "ada";
+        }else{
+            $status_revisi =  "kosong";
+        }
         /*
          echo "<br> Nilai nilai : <br>";
          echo "Nilai Pembimbing = ".$nilai_pembimbing."<br>";
@@ -260,7 +278,8 @@ class sidangTAController extends Controller
          
         $pdf = PDF::loadView('SidangTA.beritaAcara',
         compact('laporanTA',
-        'nilai_pembimbing_all',
+        'nilai_bonus',
+        'nilai_pembimbing',
         'nilai_laporanFIX',
         'nilai_penguji',
         'total_nilai',
@@ -268,7 +287,8 @@ class sidangTAController extends Controller
         'prodi',
         'hari',
         'tanggal',
-        'jadwalSidang'));
+        'jadwalSidang',
+        'status_revisi'));
         return $pdf->stream();  
         
 
@@ -353,6 +373,21 @@ class sidangTAController extends Controller
             
         }else{
             $statusDosen = "error";
+        }
+    }
+
+    public function unlocknilaisidang(Request $request){
+        $revisiLaporan = revisiLaporan::where('nim','=',$request->nim)
+        ->where('kode_dosen','=',$request->kode_dosen)
+        ->first();
+        //dd($revisiLaporan);
+        $revisiLaporan->status_nilaiSidang = 0;
+        $revisiLaporan->update();
+
+        if ($revisiLaporan->update()) {
+            echo "saved";
+        }else{
+            echo "failed";
         }
     }
 }

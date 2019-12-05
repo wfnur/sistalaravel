@@ -1,6 +1,6 @@
 @extends('Layout.master')
 
-@section('title','Laporan Tugas Akhir')
+@section('title','Penilaian Sidang Tugas Akhir')
 
 @section('navbar')
 <!-- Navbar -->
@@ -231,7 +231,7 @@
                             <form action="{{url('/Laporan/Revisi/simpan')}}" method="POST">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="nim" value="{{$nim}}">
-                                <input type="hidden" name="kode_dosen" value="{{Auth::user()->username}}">
+                                <input type="hidden" name="kode_dosen" value="{{auth()->user()->username}}">
                                 <div class="form-group">
                                     <textarea name="revisi" id="revisiLaporan" cols="30" rows="10">{{$revisiLaporan->revisi or ''}}</textarea>
                                 </div>

@@ -23,7 +23,7 @@ class Mahasiswa extends Model
     }  
 
     public function laporanta(){
-        return $this->hasOne('App\laporanTA','nim','id');
+        return $this->hasOne('App\laporanTA','nim','nim');
     }
 
     public function paper(){

@@ -67,7 +67,9 @@ Route::group(['middleware' => ['auth','checkRole:mhs']], function () {
     Route::post('/Proposal/Store/GambaranTeknologi', 'proposal_taController@storeGambaranTeknologi');
 
     Route::get('/Laporan/TA', 'laporanTAController@create');
+    Route::get('/Laporan/Revisi', 'laporanTAController@createRevisi');
     Route::post('/LaporanTA/Store', 'laporanTAController@store');
+    Route::post('/LaporanTA/Revisi/Store', 'laporanTAController@storeRevisi');
 
     Route::get('Bimbingan', 'BimbinganController@index');
     Route::get('Bimbingan/create', 'BimbinganController@create');
@@ -105,11 +107,18 @@ Route::group(['middleware' => ['auth','checkRole:dsn']], function () {
     Route::get('/SidangTA/Nilai-Akhir/{nim}', 'sidangTAController@nilaiSidangAkhir');
     Route::get('/SidangTA/Nilai/List-Mahasiswa', 'sidangTAController@listMahasiswapanitia');
     Route::get('/SidangTA/Penilaian/Panitia/{nim}/{kode_dosen}', 'sidangTAController@penilaianSidangTAPanitia');
+    Route::post('/Unlock/Sidang', 'sidangTAController@unlocknilaisidang');
     //NIlai PKM publikasi
     Route::resource('/Nilai-PKM-Publikasi', 'nilaiPKMPublikasiController');
 
     //Paper
     Route::get('/Mahasiswa-Paper', 'paperController@listMahasiswa');
     Route::post('/Paper/saveStatusPaper', 'paperController@saveStatusPaper');
+
+     //Revisi
+    Route::get('/Laporan/Revisi/List-Mahasiswa', 'laporanTAController@listMahasiswa_revisi');
+    Route::get('/Laporan/Revisi/{nim}', 'laporanTAController@revisiLaporan');
+    Route::post('/Laporan/Revisi/simpan2', 'laporanTAController@saveRevisiLaporan2');
+    Route::get('/Laporan/Download/File/{nama}', 'laporanTAController@downloadfileRevisi');
    
 });

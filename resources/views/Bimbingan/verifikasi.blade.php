@@ -270,7 +270,7 @@
             console.log(kode_bimbingan);
             $.ajax({
                 type:"post",
-                url:"/Bimbingan/saveBimbingan",
+                url:"{{url('/Bimbingan/saveBimbingan')}}",
                 data: kode_bimbingan,
                 cache:false,
                 success: function (a){

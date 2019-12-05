@@ -1,6 +1,6 @@
 @extends('Layout.master')
 
-@section('title','Laporan Tugas Akhir')
+@section('title','Penilaian Sidang Tugas Akhir')
 
 @section('navbar')
 <!-- Navbar -->

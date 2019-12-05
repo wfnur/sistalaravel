@@ -67,28 +67,30 @@
                           <table class="table table-hover table-responsive" id='tableListMhsNilaiTA'>
                               <thead>
                                 <th>No</th>
+                                <th>NIM</th>
+                                <th>Nama</th>
                                 <th>Judul Tugas Akhir</th>
-                                <!--<th>Bidang</th>-->
-                                <!---<th>Sebagai</th>--->
+                                <th>Sebagai</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                               </thead>
                               <tbody>
                                 @php $i=1; @endphp
-
                                 @foreach ($listmhs as $record)
                                     @php
+                                    $judul_ta = \App\laporanTA::where('nim','=',$record->nim)->first();
+                                    $bidang = \App\bidang::where('id','=',$judul_ta->bidang)->first();
+                                    $revisiLaporan = \App\revisiLaporan::where('nim','=',$record->nim)
+                                    ->where('kode_dosen','=',auth()->user()->username)
+                                    ->first(); 
                                     
-                                    $getjudul = \App\laporanTA::where('nim','=',$record->nim)->first();
-                                    //var_dump($getjudul->judul_ta);
-                                    //echo $getjudul->bidang;
-                                    //$bidang = \App\bidang::findOrFail($getjudul->bidang)->first();
-                                    //dd($bidang);   
                                     @endphp
                                     <tr>
                                         <td>{{$i}}</td>
-                                        <td>{{$getjudul->judul_ta or ''}}</td>
-                                        <!--<td>{{$getjudul->bidangRelasi->bidang or ''}}</td>-->
-                                        <!--<td>
+                                        <td>{{$record->nim}}</td>
+                                        <td>{{$record->mahasiswa->nama}}</td>
+                                        <td>{{$judul_ta->judul_ta or ''}}</td>
+                                        <td>
                                             @php
                                                 if(auth()->user()->username == $record->pembimbing){
                                                     echo "Pembimbing";
@@ -102,8 +104,25 @@
                                                     echo "error";
                                                 }
                                             @endphp
-                                        </td>-->
-                                        <td><a href="{{url('/Laporan/Penilaian',[$record->nim])}}" class="btn btn-success">Mulai Menilai</a></td>
+                                        </td>
+                                        <td>
+                                        @if (isset($revisiLaporan))
+                                                @if ($revisiLaporan->status_revisi == 0)
+                                                    <span class = "btn bg-danger"> Masih Harus Revisi </span>
+                                                @elseif ($revisiLaporan->status_revisi == 1)
+                                                    <span class = "btn bg-success"> Tidak Ada Revisi </span>
+                                                @else
+                                                    Belum Direvisi
+                                                @endif
+                                            @else
+                                            <span class = "btn bg-danger"> Belum Direvisi </span>
+                                            @endif
+                                            
+                                            
+                                            
+                                        </td>
+                                        
+                                        <td><a href="{{url('/Laporan/Revisi',[$judul_ta->nim])}}" class="btn btn-primary">Revisi</a></td>
                                     </tr>
                                 @php $i++; @endphp
                                 @endforeach

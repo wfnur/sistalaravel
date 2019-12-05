@@ -1,6 +1,6 @@
 @extends('Layout.master')
 
-@section('title','Nilai Sidang Tugas Akhir')
+@section('title','Penilaian Sidang Tugas Akhir')
 
 @section('navbar')
 <!-- Navbar -->
@@ -37,13 +37,13 @@
         <div class="container-fluid">
         <div class="row mb-2" style="padding-left:20px">
             <div class="">
-                <h1 class="m-0 text-dark">Daftar Mahasiswa Nilai Laporan</h1>
+                <h1 class="m-0 text-dark">Daftar Mahasiswa Nilai Sidang</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left" style="margin-top:7px;">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item">Nilai</li>
-                <li class="breadcrumb-item active">Laporan</li>
+                <li class="breadcrumb-item active">Sidang</li>
             </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -89,19 +89,19 @@
                                                     <td>
                                                         @if (isset($item->pembimbing))
                                                         <?php $nama_pembimbing = getNamaDosen($item->pembimbing); ?>
-                                                            <a href={{url('/SidangTA/Penilaian/Panitia/'.$item->NIM.'/'.$item->ketua_penguji )}}> {{$nama_pembimbing}} </a>
+                                                            <a href={{url('/SidangTA/Penilaian/Panitia/'.$item->NIM.'/'.$item->pembimbing )}}> {{$nama_pembimbing}} </a>
                                                         @else
                                                             Pembimbing
                                                         @endif
                                                     </td>
-                                                    <td>{!! cekNilaiLaporanDosen($item->NIM, $item->ketua_penguji) !!}</td>
+                                                    <td>{!! cekNilaiDosen($item->NIM, $item->ketua_penguji) !!}</td>
                                                     <td>
                                                         <form onsubmit='unlock({{$item->NIM}}); return false;' id={{$item->NIM}}_1 action='' method='post'>
                                                             {{ csrf_field() }}
                                                             <input type="hidden" name="nim" value={{$item->NIM}}>
-                                                            <input type="hidden" name="kode_dosen" value={{$item->ketua_penguji}}>
+                                                            <input type="hidden" name="kode_dosen" value={{$item->pembimbing}}>
                                                             <div id="ok1">
-                                                                {!! cekFinalisasiNilaiLaporanDosen($item->NIM, $item->ketua_penguji) !!}
+                                                                {!! cekFinalisasiNilaiSidangDosen($item->NIM, $item->pembimbing) !!}
                                                             </div>
                                                             <div id="ok2"></div>
                                                         </form>
@@ -116,14 +116,14 @@
                                                             Ketua Penguji
                                                         @endif
                                                     </td>
-                                                    <td>{!! cekNilaiLaporanDosen($item->NIM, $item->ketua_penguji) !!}</td>
+                                                    <td>{!! cekNilaiDosen($item->NIM, $item->ketua_penguji) !!}</td>
                                                     <td>
                                                         <form onsubmit='unlock({{$item->NIM}}); return false;' id={{$item->NIM}}_1 action='' method='post'>
                                                             {{ csrf_field() }}
                                                             <input type="hidden" name="nim" value={{$item->NIM}}>
                                                             <input type="hidden" name="kode_dosen" value={{$item->ketua_penguji}}>
                                                             <div id="ok1">
-                                                                {!! cekFinalisasiNilaiLaporanDosen($item->NIM, $item->ketua_penguji) !!}
+                                                                {!! cekFinalisasiNilaiSidangDosen($item->NIM, $item->ketua_penguji) !!}
                                                             </div>
                                                             <div id="ok2"></div>
                                                         </form>
@@ -138,14 +138,14 @@
                                                             Penguji 1
                                                         @endif
                                                     </td>
-                                                    <td>{!! cekNilaiLaporanDosen($item->NIM, $item->penguji1) !!}</td>
+                                                    <td>{!! cekNilaiDosen($item->NIM, $item->penguji1) !!}</td>
                                                     <td>
                                                         <form onsubmit='unlock2({{$item->NIM}}); return false;' id={{$item->NIM}}_2 action=''>
                                                             {{ csrf_field() }}
                                                             <input type="hidden" name="nim" value={{$item->NIM}}>
                                                             <input type="hidden" name="kode_dosen" value={{$item->penguji1}}>
                                                             <div id="ok12">
-                                                                {!! cekFinalisasiNilaiLaporanDosen($item->NIM, $item->penguji1) !!}
+                                                                {!! cekFinalisasiNilaiSidangDosen($item->NIM, $item->penguji1) !!}
                                                             </div>
                                                             <div id="ok22"></div>
                                                         </form>
@@ -160,14 +160,14 @@
                                                             Penguji 2
                                                         @endif
                                                     </td>
-                                                    <td>{!! cekNilaiLaporanDosen($item->NIM, $item->penguji2) !!}</td>
+                                                    <td>{!! cekNilaiDosen($item->NIM, $item->penguji2) !!}</td>
                                                     <td>
                                                         <form onsubmit='unlock3({{$item->NIM}}); return false;' id={{$item->NIM}}_3 action=''>
                                                             {{ csrf_field() }}
                                                             <input type="hidden" name="nim" value={{$item->NIM}}>
                                                             <input type="hidden" name="kode_dosen" value={{$item->penguji2}}>
                                                             <div id="ok13">
-                                                                {!! cekFinalisasiNilaiLaporanDosen($item->NIM, $item->penguji2) !!}
+                                                                {!! cekFinalisasiNilaiSidangDosen($item->NIM, $item->penguji2) !!}
                                                             </div>
                                                             <div id="ok23"></div>
                                                         </form>
@@ -211,12 +211,12 @@
             console.log(kode_bimbingan);
             $.ajax({
                 type:"post",
-                url:"{{url('/Unlock/Laporan')}}",
+                url:"{{url('/Unlock/Sidang')}}",
                 data: kode_bimbingan,
                 cache:false,
                 success: function (a){
                     if(a=='saved'){
-                        alert('Unlock Nilai Laporan Success');
+                        alert('Unlock Nilai Sidang Success');
                         $('#ok2').html("<i class='fa fa-unlock fa-2x text-success'></i>");
                         $('#ok1').html("");   
                     }
@@ -230,12 +230,12 @@
             console.log(kode_bimbingan);
             $.ajax({
                 type:"post",
-                url:"{{url('/Unlock/Laporan')}}",
+                url:"{{url('/Unlock/Sidang')}}",
                 data: kode_bimbingan,
                 cache:false,
                 success: function (a){
                     if(a=='saved'){
-                        alert('Unlock Nilai Laporan Success');
+                        alert('Unlock Nilai Sidang Success');
                         $('#ok22').html("<i class='fa fa-unlock fa-2x text-success'></i>");
                         $('#ok12').html("");   
                     }
@@ -249,12 +249,12 @@
             console.log(kode_bimbingan);
             $.ajax({
                 type:"post",
-                url:"{{url('/Unlock/Laporan')}}",
+                url:"{{url('/Unlock/Sidang')}}",
                 data: kode_bimbingan,
                 cache:false,
                 success: function (a){
                     if(a=='saved'){
-                        alert('Unlock Nilai Laporan Success');
+                        alert('Unlock Nilai Sidang Success');
                         $('#ok23').html("<i class='fa fa-unlock fa-2x text-success'></i>");
                         $('#ok13').html("");   
                     }

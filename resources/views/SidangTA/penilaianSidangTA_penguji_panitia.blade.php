@@ -1,6 +1,6 @@
 @extends('Layout.master')
 
-@section('title','Laporan Tugas Akhir')
+@section('title','Penilaian Sidang Tugas Akhir')
 
 @section('navbar')
 <!-- Navbar -->
@@ -110,6 +110,8 @@
                         <li class="nav-item"><a class="nav-link" href="#demoAlat" data-toggle="tab">Nilai Demo Alat</a></li>
                         <li class="nav-item"><a class="nav-link" href="#tanyajawab" data-toggle="tab">Nilai Tanya Jawab</a></li>
                         <li class="nav-item"><a class="nav-link" href="#finalisasi" data-toggle="tab">Finalisasi Nilai Sidang TA</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-warning" style="float:right;color:white" href="{{url('/SidangTA/Nilai-Akhir',[$laporanTA->mahasiswa->NIM])}}" >Nilai Akhir</a></li>
+                            
                       </ul>
                     </div><!-- /.card-header -->
                     

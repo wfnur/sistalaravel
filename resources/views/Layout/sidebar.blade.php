@@ -140,17 +140,18 @@
                 $tahun = date('Y') - $mhs->angkatan;
                 $kelas = $tahun.$mhs->kelas;
             @endphp
-            <!--Dashboard
-            <li class="nav-item ">
-              <a href="{{url('/Dashboard-Mahasiswa')}}" class="nav-link {{ Request::getPathInfo() === "/Dashboard-Mahasiswa" ? "active" : "" }} ">
-                <i class="nav-icon fa fa-dashboard"></i>
-                <p>
-                  Dashboard
-                </p>
-              </a>
-            </li> -->
+            
 
             @if ($kelas == "3A" OR $kelas == "3B" OR $kelas == "4NK")
+                  <!--Dashboard-->
+                  <li class="nav-item ">
+                    <a href="{{url('/Mahasiswa/Beranda')}}" class="nav-link {{ Request::getPathInfo() === "/Mahasiswa/Beranda" ? "active" : "" }} ">
+                      <i class="nav-icon fa fa-dashboard"></i>
+                      <p>
+                        Dashboard
+                      </p>
+                    </a>
+                  </li>
                 <!--Proposal TA-->
                 <li class="nav-item has-treeview">
                   <a href="#" class="nav-link">
@@ -226,10 +227,29 @@
                     </p>
                   </a>
                 </li>
+
+                <!--Revisi Laporan-->
+                <li class="nav-item ">
+                  <a href="{{url('/Laporan/Revisi')}}" class="nav-link {{ Request::getPathInfo() === "/Laporan/Revisi" ? "active" : "" }} ">
+                    <p>
+                      Revisi Laporan
+                    </p>
+                  </a>
+                </li>
             @endif            
           @php } @endphp
 
           @php if(in_array("dsn",$tipe_user)){ @endphp
+
+            <!--Dashboard-->
+            <li class="nav-item ">
+              <a href="{{url('/Dosen/Beranda')}}" class="nav-link {{ Request::getPathInfo() === "/Dosen/Beranda" ? "active" : "" }} ">
+                <i class="nav-icon fa fa-dashboard"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
             <!--Penilaian Laporan TA-->
             <li class="nav-item">
               <a href="{{url('/Laporan/Penilaian/List-Mahasiswa')}}" class="nav-link @if(Request::getPathInfo() == '/Laporan/Penilaian/List-Mahasiswa') active  @endif ">
@@ -246,6 +266,16 @@
                 <i class="nav-icon fa fa-star"></i>
                 <p>
                   Penilaian Sidang TA
+                </p>
+              </a>
+            </li>
+
+            <!--Revisi Laporan-->
+            <li class="nav-item ">
+              <a href="{{url('/Laporan/Revisi/List-Mahasiswa')}}" class="nav-link {{ Request::getPathInfo() === "/Laporan/Revisi/List-Mahasiswa" ? "active" : "" }} ">
+                <i class="nav-icon fa fa-book"></i>
+                <p>
+                  Revisi Laporan
                 </p>
               </a>
             </li>

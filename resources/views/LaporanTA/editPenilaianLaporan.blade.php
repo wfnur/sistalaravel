@@ -67,7 +67,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Judul Tugas Akhir</label>
                                 <div class="col-sm-10">
-                                   <textarea cols="30" rows="4" class="form-control" disabled>{{ $laporanTA->judul_ta }}</textarea>
+                                   <textarea cols="30" rows="4" class="form-control" disabled>{{ $laporanTA->judul_ta or '' }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
