@@ -8,6 +8,8 @@ use \App\nilaiLaporan;
 use \App\revisiLaporan;
 //use Auth;
 
+
+
 function cekStatusFinalisasi_dataProposal($reviske){
     $proposal_ta = proposal_ta::where('nim', '=',auth()->user()->username)
         ->where('revisike','=',$reviske)
@@ -310,6 +312,13 @@ function cekStatusFinalisasi_gambaranTeknologi($reviske){
     return $button;
 }
 
+function generateNamaProposalTA($nim,$ext){
+    $mahasiswa = Mahasiswa::find($nim);
+    $str_name= str_replace(" ","",$mahasiswa->nama);
+    $namafile = $nim."_ProposalTA_".$str_name."_".$mahasiswa->kelas."_".$mahasiswa->angkatan.".".$ext;
+
+    return $namafile;
+}
 
 function generateNamaLaporanTA($nim,$ext){
     $mahasiswa = Mahasiswa::find($nim);

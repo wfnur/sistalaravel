@@ -51,8 +51,8 @@ Route::group(['middleware' => ['auth','checkRole:mhs']], function () {
     Route::post('/Mahasiswa/update/{NIM}', 'MahasiswaController@update'); 
     Route::post('/Mahasiswa/changePassword', 'MahasiswaController@changePassword');
 
+    //// Proposal Lama
     Route::post('/Proposal/Store/Finalisasi', 'proposal_taController@storefinalisasi');
-
     Route::get('/Proposal/TA/R0', 'proposal_taController@createR0');
     Route::get('/Proposal/TA/R1', 'proposal_taController@createR1');
     Route::post('/Proposal/Store/DataProposal', 'proposal_taController@storeDataProposal');
@@ -65,6 +65,14 @@ Route::group(['middleware' => ['auth','checkRole:mhs']], function () {
     Route::post('/Proposal/Store/JustifikasiAnggaran', 'proposal_taController@storeJustifikasiAnggaran');
     Route::post('/Proposal/Store/UploadFile', 'proposal_taController@storeUploadFile');
     Route::post('/Proposal/Store/GambaranTeknologi', 'proposal_taController@storeGambaranTeknologi');
+    ///////////////////////////////////////////////////
+
+    /// Proposal Baru
+    Route::get('/Proposal/TA', 'proposal_taController@createProposalTA');
+    Route::post('/Proposal/Store/ProposalTA', 'proposal_taController@storeProposalTA');
+    Route::post('/Proposal/Store/BerkasProposalTA', 'proposal_taController@storeUploadBerkas');
+    //////////////////////////////////////////
+
 
     Route::get('/Laporan/TA', 'laporanTAController@create');
     Route::get('/Laporan/Revisi', 'laporanTAController@createRevisi');

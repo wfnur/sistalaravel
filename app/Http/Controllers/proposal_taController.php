@@ -6,9 +6,69 @@ use Illuminate\Http\Request;
 use \App\proposal_ta;
 use \App\Dosen;
 use \App\bidang;
+use \App\proposalTA;
+use \App\berkasProposalTA;
 
-class proposal_taController extends Controller
+
+class proposal_taController extends BaseController
 {
+    public function createProposalTA(){
+        $cekdata = proposalTA::where('NIM', '=', Auth::user()->username) 
+        ->first();
+        $cekdatadoc = berkasProposalTA::where('NIM', '=', Auth::user()->username) 
+        ->where('jenis_berkas','=','doc')
+        ->first();
+        $cekdatapdf = berkasProposalTA::where('NIM', '=', Auth::user()->username) 
+        ->where('jenis_berkas','=','pdf')
+        ->first();
+        $cekberkas = berkasProposalTA::where('NIM', '=', Auth::user()->username) ->first();
+        if ($cekdata!="") {
+            $pembimbing1 = Dosen::where('status','=','0')->get();
+            $pembimbing2 = Dosen::where('status','=','1')->get();
+            return view('ProposalTA.editedProposalTA', compact('pembimbing1','pembimbing2','cekdata','cekdatadoc','cekdatapdf'));
+        }else{
+            $pembimbing1 = Dosen::where('status','=','0')->get();
+            $pembimbing2 = Dosen::where('status','=','1')->get();
+            return view('ProposalTA.createProposalTA', compact('pembimbing1','pembimbing2','cekberkas'));            
+        }
+            
+    }
+
+    public function storeProposalTA(Request $request){
+        $proposalta = \App\proposalTA::updateOrCreate([
+            'NIM'   => Auth::user()->username,
+        ],[
+            'judul_ta'      => $request->get('judul_ta'),
+            'pembimbing1'   => $request->get("pembimbing1"),
+            'pembimbing2'   => $request->get('pembimbing2'),
+            'abstrak'       => $request->get('abstrak'),
+            'keyword'       => $request->get("keyword"),
+            'pembimbing_2'  => $request->get('pembimbing_2'),
+
+        ]);
+        
+        if ($proposalta) {
+            return redirect()->back()->with('sukses','Data Proposal Berhasil Diubah/Disimpan');
+        }else{
+            return redirect()->back()->with('gagal','Data Proposal Gagal Diubah/Disimpan');
+        }
+    }
+
+    public function storeUploadBerkas(Request $request){
+            //return $request->file('berkas');
+    
+            $imgName = generateNamaProposalTA(Auth::user()->username,$request->file('berkas')->getClientOriginalExtension());
+            $request->file('berkas')->move('public/Berkas_ProposalTA/',$imgName);
+
+            $berkasproposalta = berkasProposalTA::updateOrCreate([
+                'NIM'           => $request->nim,
+                'jenis_berkas'  =>$request->jenis_berkas,
+            ],[
+                'nama_berkas' => $imgName,
+                
+            ]);
+            
+    }
 
     public function createR0(){
         $cekdata = proposal_ta::where('nim', '=', Auth::user()->username)

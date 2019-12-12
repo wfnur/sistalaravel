@@ -11,6 +11,14 @@ class Mahasiswa extends Model
     protected $primaryKey = 'NIM';
     protected $fillable = ['user_id','NIM','nama','jk','alamat','telpon','email','angkatan','kelas','nourut','prodi','ttl','created_at','updated_at'];
 
+    public function berkasLaporanTA(){
+        return $this->hasOne('App\berkasLaporanTA','nim','nim');
+    }
+
+    public function propsoalTA(){
+        return $this->hasOne('App\berkasLaporanTA','nim','nim');
+    }
+
     public function bimbingan()
     {
         return $this->hasMany('App\bimbingan');

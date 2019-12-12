@@ -73,7 +73,7 @@ $(document).ready(function() {
 
   if($("#justifikasi_anggaran_before").length > 0){
     CKEDITOR.replace( 'justifikasi_anggaran_before',{
-      height: 200,
+      height: 500,
       toolbarGroups: [
         {
           "name": "basicstyles",

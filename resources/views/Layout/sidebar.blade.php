@@ -4,6 +4,7 @@
       $user = \App\Mahasiswa::find(auth()->user()->username);            
   }
   $tipe_user = explode(",",auth()->user()->tipe_user);
+
 ?>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-danger elevation-4">
@@ -136,23 +137,32 @@
 
           @php if (in_array("mhs",$tipe_user)){ @endphp
             @php
-                $mhs = \App\Mahasiswa::where('NIM','=',auth()->user()->username)->first();
-                $tahun = date('Y') - $mhs->angkatan;
-                $kelas = $tahun.$mhs->kelas;
+              $mhs = \App\Mahasiswa::where('NIM','=',auth()->user()->username)->first();
+              $tahun = date('Y') - $mhs->angkatan;
+              $kelas = $tahun.$mhs->kelas;
             @endphp
             
+            @if ($kelas == "3A" OR $kelas == "3B" OR $kelas == "4NK" OR $kelas == "2A" OR $kelas == "2B" OR $kelas == "2NK")
+                <!--Dashboard-->
+                <li class="nav-item ">
+                  <a href="{{url('/Mahasiswa/Beranda')}}" class="nav-link {{ Request::getPathInfo() === "/Mahasiswa/Beranda" ? "active" : "" }} ">
+                    <i class="nav-icon fa fa-dashboard"></i>
+                    <p>
+                      Dashboard 
+                    </p>
+                  </a>
+                </li>
 
-            @if ($kelas == "3A" OR $kelas == "3B" OR $kelas == "4NK")
-                  <!--Dashboard-->
-                  <li class="nav-item ">
-                    <a href="{{url('/Mahasiswa/Beranda')}}" class="nav-link {{ Request::getPathInfo() === "/Mahasiswa/Beranda" ? "active" : "" }} ">
-                      <i class="nav-icon fa fa-dashboard"></i>
-                      <p>
-                        Dashboard
-                      </p>
-                    </a>
-                  </li>
                 <!--Proposal TA-->
+                <li class="nav-item ">
+                  <a href="{{url('/Proposal/TA')}}" class="nav-link {{ Request::getPathInfo() === "/Proposal/TA" ? "active" : "" }} ">
+                    <p>
+                      Proposal TA 
+                    </p>
+                  </a>
+                </li>
+
+                <!--Proposal TA-
                 <li class="nav-item has-treeview">
                   <a href="#" class="nav-link">
                     <p>Propsal Tugas Akhir </p>
@@ -181,6 +191,7 @@
                     </li>
                   </ul>
                 </li>
+                ->
 
                 <!--Bimbingan Mahasiswa-->
                 <li class="nav-item has-treeview">
