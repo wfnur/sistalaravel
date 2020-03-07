@@ -1,4 +1,23 @@
 $(document).ready(function() {
+  if($("#reviewPTA").length > 0){
+      CKEDITOR.replace( 'reviewPTA',{
+          height: 550,
+          toolbarGroups: [
+            {
+              "name": "basicstyles",
+              "groups": ["basicstyles"]
+            },
+            {
+              "name": "paragraph",
+              "groups": [ 'indent', 'align', 'paragraph' ] 
+            },
+            { "name": 'tools', 
+              "groups": [ 'tools' ] 
+            },        
+          ],
+      });
+  }
+
   if($("#biaya").length > 0){
     CKEDITOR.replace( 'biaya',{
       height: 300,
@@ -97,7 +116,7 @@ $(document).ready(function() {
 
   if($("#abstrak_ind").length > 0){
       CKEDITOR.replace( 'abstrak_ind',{
-          height: 100,
+          height: 275,
           toolbarGroups: [
             {
               "name": "basicstyles",
@@ -116,7 +135,7 @@ $(document).ready(function() {
 
   if($("#abstrak_eng").length > 0){
       CKEDITOR.replace( 'abstrak_eng',{
-          height: 100,
+          height: 400,
           toolbarGroups: [
             {
               "name": "basicstyles",

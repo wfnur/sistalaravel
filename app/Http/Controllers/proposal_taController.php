@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Routing\Controller as BaseController;
 use Auth;
 use Illuminate\Http\Request;
 use \App\proposal_ta;
@@ -8,28 +9,65 @@ use \App\Dosen;
 use \App\bidang;
 use \App\proposalTA;
 use \App\berkasProposalTA;
+use \App\deadline;
 
 
 class proposal_taController extends BaseController
 {
     public function createProposalTA(){
+        $deadline = deadline::where('status','=',1)->first();
+        $deadlineR1 = deadline::where('id','=',2)->first();
+        $deadlineR2 = deadline::where('id','=',5)->first();
+        $deadlineR3 = deadline::where('id','=',6)->first();
+        $sekarang = date('Y-m-d H:i:s');
+
+        // jika sudah melebih deadline maka
+        if ($sekarang >= $deadline->tanggal) {
+            $disable = "disable";
+        }else{
+            $disable = "";
+        }
+        //////////////////////////////////////////////////
+        if ($sekarang >= $deadlineR1->tanggal) {
+            $visibilityR1 = "show";
+        }else{
+            $visibilityR1 = "hide";
+        }
+        //////////////////////////////////////////////////
+        if ($sekarang >= $deadlineR2->tanggal) {
+            $visibilityR2 = "show";
+        }else{
+            $visibilityR2 = "hide";
+        }
+        ///////////////////////////////////////////////////
+        if ($sekarang >= $deadlineR3->tanggal) {
+            $visibilityR3 = "show";
+        }else{
+            $visibilityR3 = "hide";
+        }
+
         $cekdata = proposalTA::where('NIM', '=', Auth::user()->username) 
         ->first();
-        $cekdatadoc = berkasProposalTA::where('NIM', '=', Auth::user()->username) 
-        ->where('jenis_berkas','=','doc')
-        ->first();
-        $cekdatapdf = berkasProposalTA::where('NIM', '=', Auth::user()->username) 
-        ->where('jenis_berkas','=','pdf')
-        ->first();
+        $revisi1_pdf = cekberkasporposal(Auth::user()->username,"pdf","1");
+        $revisi1_doc = cekberkasporposal(Auth::user()->username,"doc","1");
+
+        $revisi2_pdf = cekberkasporposal(Auth::user()->username,"pdf","2");
+        $revisi2_doc = cekberkasporposal(Auth::user()->username,"doc","2");
+
+        $revisi3_pdf = cekberkasporposal(Auth::user()->username,"pdf","3");
+        $revisi3_doc = cekberkasporposal(Auth::user()->username,"doc","3");
+        
         $cekberkas = berkasProposalTA::where('NIM', '=', Auth::user()->username) ->first();
         if ($cekdata!="") {
             $pembimbing1 = Dosen::where('status','=','0')->get();
             $pembimbing2 = Dosen::where('status','=','1')->get();
-            return view('ProposalTA.editedProposalTA', compact('pembimbing1','pembimbing2','cekdata','cekdatadoc','cekdatapdf'));
+            return view('ProposalTA.editedProposalTA', compact('pembimbing1','pembimbing2','cekdata',
+            'revisi1_pdf','revisi1_doc','revisi2_pdf','revisi2_doc','revisi3_pdf','revisi3_doc',
+            'visibilityR1','visibilityR2','visibilityR3','cekdatapdf','disable'));
         }else{
             $pembimbing1 = Dosen::where('status','=','0')->get();
             $pembimbing2 = Dosen::where('status','=','1')->get();
-            return view('ProposalTA.createProposalTA', compact('pembimbing1','pembimbing2','cekberkas'));            
+            return view('ProposalTA.createProposalTA', compact('pembimbing1','pembimbing2','cekberkas','disable'));            
         }
             
     }
@@ -55,17 +93,16 @@ class proposal_taController extends BaseController
     }
 
     public function storeUploadBerkas(Request $request){
-            //return $request->file('berkas');
     
-            $imgName = generateNamaProposalTA(Auth::user()->username,$request->file('berkas')->getClientOriginalExtension());
+            $imgName = generateNamaProposalTA(Auth::user()->username,$request->file('berkas')->getClientOriginalExtension(),$request->revisike);
             $request->file('berkas')->move('public/Berkas_ProposalTA/',$imgName);
 
             $berkasproposalta = berkasProposalTA::updateOrCreate([
                 'NIM'           => $request->nim,
                 'jenis_berkas'  =>$request->jenis_berkas,
+                'revisike'      =>$request->revisike,
             ],[
                 'nama_berkas' => $imgName,
-                
             ]);
             
     }

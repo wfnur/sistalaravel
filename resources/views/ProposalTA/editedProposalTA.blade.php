@@ -186,25 +186,25 @@
                                   <!--judul-->
                                   <div class='form-group'>
                                     <label>Judul TA</label>
-                                    <textarea cols="80" name="judul_ta" rows="3" class="form-control" >{{$cekdata->judul_ta}}</textarea>
+                                    <textarea cols="80" name="judul_ta" rows="3" class="form-control" {{$disable}}>{{$cekdata->judul_ta}}</textarea>
                                   </div>
                                   
                                   <!--abstrak-->
                                   <div class="form-group">
                                     <label>Abstrak (max: 250 kata)</label>
-                                    <textarea cols="80" id="abstrak_ind" name="abstrak" rows="20" class="form-control">{{$cekdata->abstrak}}</textarea>
+                                    <textarea cols="80" id="abstrak_ind" name="abstrak" rows="20" class="form-control" {{$disable}}>{{$cekdata->abstrak}}</textarea>
                                   </div>
 
                                   <!--keyword-->
                                   <div class='form-group'>
                                     <label>Keyword</label>
-                                    <input type="text" name="keyword" class='form-control' value='{{$cekdata->keyword}}'>
+                                    <input type="text" name="keyword" class='form-control' value='{{$cekdata->keyword}}' {{$disable}}>
                                   </div>
 
                                   <!--Pembimbing 1-->
                                   <div class="form-group">
                                     <label>Pembimbing 1 </label>
-                                    <select class="form-control" name="pembimbing1">
+                                    <select class="form-control" name="pembimbing1" {{$disable}}>
                                         <option value='0'>-------------------------</option>
                                         @foreach ($pembimbing1 as $p1)
                                         <option value={{$p1->kode_dosen }} @if($cekdata->pembimbing1==$p1->kode_dosen) selected @endif> {{ $p1->nama }}</option>
@@ -215,7 +215,7 @@
                                   <!--Pembimbing 2-->
                                   <div class="form-group">
                                     <label>Pembimbing 2 </label>
-                                    <select class="form-control" name="pembimbing2">
+                                    <select class="form-control" name="pembimbing2" {{$disable}}>
                                         <option value='0'>-------------------------</option>
                                         @foreach ($pembimbing2 as $p2)
                                         <option value={{ $p2->kode_dosen }} @if($cekdata->pembimbing2==$p2->kode_dosen) selected @endif> {{ $p2->nama }}</option>
@@ -227,45 +227,47 @@
                                       <input type="submit" value="Simpan" class='btn btn-info'>
                                   </div>
                             </form>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <form id="frm" enctype="multipart/form-data">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="hidden" name="nim" value="{{auth()->user()->username}}">
-                                        <input type="hidden" name="jenis_berkas" value="pdf">
-                                        <div class='form-group'>
-                                            <label for="exampleInputFile">Proposal TA (.pdf)
-                                                <br>
-                                                <span id="file_error" style="color:#dc3545 "></span>
-                                            </label>
-                                            <input id="file_input" type="file" name="berkas" class="form-control" accept=".pdf" onchange="return validatepdf();"> </br>
-                                            <input type="submit" value="Upload" id="btnsubmitpdf" class="btn btn-primary" >
-                                            @if($cekdatapdf->nama_berkas!="")
-                                                <a href={{asset('public/Berkas_ProposalTA/'.$cekdatapdf->nama_berkas)}} class="btn btn-warning" target="_blank"> Lihat Proposal</a>
-                                            @endif
-                                            <div id="wait">
-                                                <div class="spinner-border" role="status">
-                                                </div>
-                                            </div> 
-                                            
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-6">
+                            
+                              <div class="row">
+                                  <div class="col-6">
+                                      <form id="frm" enctype="multipart/form-data">
+                                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                          <input type="hidden" name="nim" value="{{auth()->user()->username}}">
+                                          <input type="hidden" name="jenis_berkas" value="pdf">
+                                          <input type="hidden" name="revisike" value="1">
+                                          <div class='form-group'>
+                                              <label for="exampleInputFile">Proposal TA (.pdf)
+                                                  <br>
+                                                  <span id="file_error" style="color:#dc3545 "></span>
+                                              </label>
+                                              <input id="file_input" type="file" name="berkas" class="form-control" accept=".pdf" onchange="return validatepdf();" {{$disable}}> </br>
+                                              <input type="submit" value="Upload" id="btnsubmitpdf" class="btn btn-primary" {{$disable}}>
+                                              @if($revisi1_pdf!="")
+                                                  <a href={{asset('public/Berkas_ProposalTA/'.$revisi1_pdf->nama_berkas)}} class="btn btn-warning" target="_blank"> Lihat Proposal</a>
+                                              @endif
+                                              <div id="wait">
+                                                  <div class="spinner-border" role="status">
+                                                  </div>
+                                              </div> 
+                                              
+                                          </div>
+                                      </form>
+                                  </div>
+                                  <div class="col-6">
                                     <form id="frmdoc" enctype="multipart/form-data">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="nim" value="{{auth()->user()->username}}">
                                         <input type="hidden" name="jenis_berkas" value="doc">
+                                        <input type="hidden" name="revisike" value="1">
                                         <div class='form-group'>
                                             <label for="exampleInputFile">Proposal TA (.doc)
                                                 <br>
                                                 <span id="file_errordoc" style="color:#dc3545 "></span>
                                             </label>
-                                            <input id="file_inputdoc" type="file" name="berkas" class="form-control" accept=".doc,.docx" onchange="return validatedoc();"> </br>
-                                            <input type="submit" value="Upload" id="btnsubmitdoc" class="btn btn-primary" >
-                                            @if($cekdatadoc->nama_berkas!="")
-                                                <a href={{asset('public/Berkas_ProposalTA/'.$cekdatadoc->nama_berkas)}} class="btn btn-warning" target="_blank"> Lihat Proposal</a>
+                                            <input id="file_inputdoc" type="file" name="berkas" class="form-control" accept=".doc,.docx" onchange="return validatedoc();" {{$disable}}> </br>
+                                            <input type="submit" value="Upload" id="btnsubmitdoc" class="btn btn-primary" {{$disable}}>
+                                            @if($revisi1_doc!="")
+                                                <a href={{asset('public/Berkas_ProposalTA/'.$revisi1_doc->nama_berkas)}} class="btn btn-warning" target="_blank"> Lihat Proposal</a>
                                             @endif
                                             <div id="waitdoc">
                                                 <div class="spinner-border" role="status">
@@ -274,15 +276,127 @@
                                             
                                         </div>
                                     </form>
+                                  </div>
+                              </div>
+                            
+                            
+                            @if ($visibilityR1 == "show")
+                            <div class="row">
+                              <div class="col-12">
+                                <br>
+                                <h3>Revisi 2</h3>
+                              </div>
+                                <div class="col-6">
+                                    <form id="frm_rev2" enctype="multipart/form-data">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="nim" value="{{auth()->user()->username}}">
+                                        <input type="hidden" name="jenis_berkas" value="pdf">
+                                        <input type="hidden" name="revisike" value="2">
+                                        <div class='form-group'>
+                                            <label for="exampleInputFile">Proposal TA (.pdf)
+                                                <br>
+                                                <span id="file_error_rev2" style="color:#dc3545 "></span>
+                                            </label>
+                                            <input id="file_input_rev2" type="file" name="berkas" class="form-control" accept=".pdf" onchange="return validatepdf_rev2();" {{$disable}}> </br>
+                                            <input type="submit" value="Upload" id="btnsubmitpdf_rev2" class="btn btn-primary" {{$disable}}>
+                                            @if($revisi2_pdf!="")
+                                                <a href={{asset('public/Berkas_ProposalTA/'.$revisi2_pdf->nama_berkas)}} class="btn btn-warning" target="_blank"> Lihat Proposal</a>
+                                            @endif
+                                            <div id="wait_rev2">
+                                                <div class="spinner-border_rev2" role="status">
+                                                </div>
+                                            </div> 
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-6">
+                                  <form id="frmdoc_rev2" enctype="multipart/form-data">
+                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                      <input type="hidden" name="nim" value="{{auth()->user()->username}}">
+                                      <input type="hidden" name="jenis_berkas" value="doc">
+                                      <input type="hidden" name="revisike" value="2">
+                                      <div class='form-group'>
+                                          <label for="exampleInputFile">Proposal TA (.doc)
+                                              <br>
+                                              <span id="file_errordoc_rev2" style="color:#dc3545 "></span>
+                                          </label>
+                                          <input id="file_inputdoc_rev2" type="file" name="berkas" class="form-control" accept=".doc,.docx" onchange="return validatedoc_rev2();" {{$disable}}> </br>
+                                          <input type="submit" value="Upload" id="btnsubmitdoc_rev2" class="btn btn-primary" {{$disable}}>
+                                          @if($revisi2_doc!="")
+                                              <a href={{asset('public/Berkas_ProposalTA/'.$revisi2_doc->nama_berkas)}} class="btn btn-warning" target="_blank"> Lihat Proposal</a>
+                                          @endif
+                                          <div id="waitdoc_rev2">
+                                              <div class="spinner-border" role="status">
+                                              </div>
+                                          </div> 
+                                          
+                                      </div>
+                                  </form>
                                 </div>
                             </div>
+                            @else 
+                            @endif
 
-                            
-
-                            
+                            @if ($visibilityR2 == "show")
+                            <div class="row">
+                                <div class="col-12">
+                                  <br>
+                                  <h3>Revisi 3</h3>
+                                </div>
+                                <div class="col-6">
+                                    <form id="frm_rev3" enctype="multipart/form-data">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="nim" value="{{auth()->user()->username}}">
+                                        <input type="hidden" name="jenis_berkas" value="pdf">
+                                        <input type="hidden" name="revisike" value="3">
+                                        <div class='form-group'>
+                                            <label for="exampleInputFile">Proposal TA (.pdf)
+                                                <br>
+                                                <span id="file_error_rev3" style="color:#dc3545 "></span>
+                                            </label>
+                                            <input id="file_input_rev3" type="file" name="berkas" class="form-control" accept=".pdf" onchange="return validatepdf_rev3();" {{$disable}}> </br>
+                                            <input type="submit" value="Upload" id="btnsubmitpdf_rev3" class="btn btn-primary" {{$disable}}>
+                                            @if($revisi3_pdf!="")
+                                                <a href={{asset('public/Berkas_ProposalTA/'.$revisi3_pdf->nama_berkas)}} class="btn btn-warning" target="_blank"> Lihat Proposal</a>
+                                            @endif
+                                            <div id="wait_rev3">
+                                                <div class="spinner-border_rev3" role="status">
+                                                </div>
+                                            </div> 
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-6">
+                                  <form id="frmdoc_rev3" enctype="multipart/form-data">
+                                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                      <input type="hidden" name="nim" value="{{auth()->user()->username}}">
+                                      <input type="hidden" name="jenis_berkas" value="doc">
+                                      <input type="hidden" name="revisike" value="3">
+                                      <div class='form-group'>
+                                          <label for="exampleInputFile">Proposal TA (.doc)
+                                              <br>
+                                              <span id="file_errordoc_rev3" style="color:#dc3545 "></span>
+                                          </label>
+                                          <input id="file_inputdoc_rev3" type="file" name="berkas" class="form-control" accept=".doc,.docx" onchange="return validatedoc_rev3();" {{$disable}}> </br>
+                                          <input type="submit" value="Upload" id="btnsubmitdoc_rev3" class="btn btn-primary" {{$disable}}>
+                                          @if($revisi3_doc!="")
+                                              <a href={{asset('public/Berkas_ProposalTA/'.$revisi3_doc->nama_berkas)}} class="btn btn-warning" target="_blank"> Lihat Proposal</a>
+                                          @endif
+                                          <div id="waitdoc_rev3">
+                                              <div class="spinner-border" role="status">
+                                              </div>
+                                          </div> 
+                                          
+                                      </div>
+                                  </form>
+                                </div>
+                            </div>
+                            @else 
+                            @endif
                             
                           </div>
-                          
                       </div>
                     </div>
                     <!-- /.card -->          
@@ -310,14 +424,41 @@
     <script type="text/javascript">
         
 $(document).ready(function (e) {
+  
     $( "#btnsubmitpdf" ).prop( "disabled", true );
     $( "#btnsubmitdoc" ).prop( "disabled", true );
     $("#wait").hide();
     $("#waitdoc").hide();
-    $(".notif-fixed").hide(); 
-
+    $(".notif-fixed").hide();
+    
     $("#frm").on('submit',(function(e) {
-    e.preventDefault();
+      e.preventDefault();
+      $.ajax({
+          url: "{{url('/Proposal/Store/BerkasProposalTA')}}",
+          type: "POST",
+          data:  new FormData(this),
+          contentType: false,
+          cache: false,
+          processData:false,
+          beforeSend : function(){
+          //$("#preview").fadeOut();
+              $("#wait").show();
+          },
+          success: function(data){
+              $("#wait").hide();
+              $(".notif-fixed").show();
+              setTimeout(function(){
+                  window.location.reload(); // you can pass true to reload function to ignore the client cache and reload from the server
+              },200);  
+          },
+          error: function(e){
+              console.log("error");
+          }          
+      });
+    }));
+  
+    $("#frmdoc").on('submit',(function(e) {
+      e.preventDefault();
         $.ajax({
             url: "{{url('/Proposal/Store/BerkasProposalTA')}}",
             type: "POST",
@@ -327,46 +468,135 @@ $(document).ready(function (e) {
             processData:false,
             beforeSend : function(){
             //$("#preview").fadeOut();
-                $("#wait").show();
+                $("#waitdoc").show();
             },
             success: function(data){
                 $("#wait").hide();
                 $(".notif-fixed").show();
                 setTimeout(function(){
                     window.location.reload(); // you can pass true to reload function to ignore the client cache and reload from the server
-                },2000);  
+                },200);  
             },
             error: function(e){
                 console.log("error");
             }          
         });
     }));
+/////////////////////////////////////////////////////////////////////////////////
+    $( "#btnsubmitpdf_rev2" ).prop( "disabled", true );
+    $( "#btnsubmitdoc_rev2" ).prop( "disabled", true );
+    $("#wait_rev2").hide();
+    $("#waitdoc_rev2").hide();
 
-    $("#frmdoc").on('submit',(function(e) {
-        e.preventDefault();
-            $.ajax({
-                url: "{{url('/Proposal/Store/BerkasProposalTA')}}",
-                type: "POST",
-                data:  new FormData(this),
-                contentType: false,
-                cache: false,
-                processData:false,
-                beforeSend : function(){
-                //$("#preview").fadeOut();
-                    $("#waitdoc").show();
-                },
-                success: function(data){
-                    $("#wait").hide();
-                    $(".notif-fixed").show();
-                    setTimeout(function(){
-                        window.location.reload(); // you can pass true to reload function to ignore the client cache and reload from the server
-                    },2000);  
-                },
-                error: function(e){
-                    console.log("error");
-                }          
-            });
-        }));
+
+    $("#frm_rev2").on('submit',(function(e) {
+      e.preventDefault();
+      $.ajax({
+          url: "{{url('/Proposal/Store/BerkasProposalTA')}}",
+          type: "POST",
+          data:  new FormData(this),
+          contentType: false,
+          cache: false,
+          processData:false,
+          beforeSend : function(){
+          //$("#preview").fadeOut();
+              $("#wait_rev2").show();
+          },
+          success: function(data){
+              $("#wait_rev2").hide();
+              $(".notif-fixed").show();
+              setTimeout(function(){
+                  window.location.reload(); // you can pass true to reload function to ignore the client cache and reload from the server
+              },200);  
+          },
+          error: function(e){
+              console.log("error");
+          }          
+      });
+    }));
+  
+    $("#frmdoc_rev2").on('submit',(function(e) {
+      e.preventDefault();
+      $.ajax({
+          url: "{{url('/Proposal/Store/BerkasProposalTA')}}",
+          type: "POST",
+          data:  new FormData(this),
+          contentType: false,
+          cache: false,
+          processData:false,
+          beforeSend : function(){
+          //$("#preview").fadeOut();
+              $("#waitdoc_rev2").show();
+          },
+          success: function(data){
+              $("#wait_rev2").hide();
+              $(".notif-fixed").show();
+              setTimeout(function(){
+                  window.location.reload(); // you can pass true to reload function to ignore the client cache and reload from the server
+              },200);  
+          },
+          error: function(e){
+              console.log("error");
+          }          
+      });
+    }));
+//////////////////////////////////////////////////////////////////////////////
+    $( "#btnsubmitpdf_rev3" ).prop( "disabled", true );
+    $( "#btnsubmitdoc_rev3" ).prop( "disabled", true );
+    $("#wait_rev3").hide();
+    $("#waitdoc_rev3").hide();
+    
+    $("#frm_rev3").on('submit',(function(e) {
+      e.preventDefault();
+      $.ajax({
+          url: "{{url('/Proposal/Store/BerkasProposalTA')}}",
+          type: "POST",
+          data:  new FormData(this),
+          contentType: false,
+          cache: false,
+          processData:false,
+          beforeSend : function(){
+          //$("#preview").fadeOut();
+              $("#wait_rev3").show();
+          },
+          success: function(data){
+              $("#wait_rev3").hide();
+              $(".notif-fixed").show();
+              setTimeout(function(){
+                  window.location.reload(); // you can pass true to reload function to ignore the client cache and reload from the server
+              },200);  
+          },
+          error: function(e){
+              console.log("error");
+          }          
+      });
+    }));
+
+    $("#frmdoc_rev3").on('submit',(function(e) {
+      e.preventDefault();
+      $.ajax({
+          url: "{{url('/Proposal/Store/BerkasProposalTA')}}",
+          type: "POST",
+          data:  new FormData(this),
+          contentType: false,
+          cache: false,
+          processData:false,
+          beforeSend : function(){
+          //$("#preview").fadeOut();
+              $("#waitdoc_rev3").show();
+          },
+          success: function(data){
+              $("#wait_rev3").hide();
+              $(".notif-fixed").show();
+              setTimeout(function(){
+                  window.location.reload(); // you can pass true to reload function to ignore the client cache and reload from the server
+              },200);  
+          },
+          error: function(e){
+              console.log("error");
+          }          
+      });
+    }));
 });
 
 function validatepdf() {
@@ -414,5 +644,100 @@ function validatedoc() {
     }   
 return true;
 }
-    </script>
+//////////////////////////////////////////////////////////////////
+function validatepdf_rev2() {
+  $("#file_error").html("");
+  var file_size = $('#file_input_rev2')[0].files[0].size;
+  var inputFile = document.getElementById('file_input_rev2');
+  var pathFile = inputFile.value;
+  var ekstensiOk = /(\.pdf)$/i;
+  if(!ekstensiOk.exec(pathFile)){
+      alert('Silakan upload file yang memiliki ekstensi .pdf');
+      inputFile.value = '';
+      return false;
+  }else{
+      console.log(file_size);
+      if(file_size>2097152) {
+          $("#file_error_rev2").html("Ukuran File Lebih Dari 2 MB !");
+          $( "#btnsubmitpdf_rev2" ).prop( "disabled", true );
+          return false;
+      } else{
+          $( "#btnsubmitpdf_rev2" ).prop( "disabled", false );
+      }
+  }   
+return true;
+}
+
+function validatedoc_rev2() {
+  $("#file_errordoc").html("");
+  var file_size = $('#file_inputdoc_rev2')[0].files[0].size;
+  var inputFile = document.getElementById('file_inputdoc_rev2');
+  var pathFile = inputFile.value;
+  var ekstensiOk = /(\.doc|\.docx)$/i;
+  if(!ekstensiOk.exec(pathFile)){
+      alert('Silakan upload file yang memiliki ekstensi .pdf');
+      inputFile.value = '';
+      return false;
+  }else{
+      console.log(file_size);
+      if(file_size>2097152) {
+          $("#file_errordoc_rev2").html("Ukuran File Lebih Dari 2 MB !");
+          $( "#btnsubmitdoc_rev2" ).prop( "disabled", true );
+          return false;
+      } else{
+          $( "#btnsubmitdoc_rev2" ).prop( "disabled", false );
+      }
+  }   
+return true;
+}
+
+
+
+function validatepdf_rev3() {
+  $("#file_error").html("");
+  var file_size = $('#file_input_rev3')[0].files[0].size;
+  var inputFile = document.getElementById('file_input_rev3');
+  var pathFile = inputFile.value;
+  var ekstensiOk = /(\.pdf)$/i;
+  if(!ekstensiOk.exec(pathFile)){
+      alert('Silakan upload file yang memiliki ekstensi .pdf');
+      inputFile.value = '';
+      return false;
+  }else{
+      console.log(file_size);
+      if(file_size>2097152) {
+          $("#file_error_rev3").html("Ukuran File Lebih Dari 2 MB !");
+          $( "#btnsubmitpdf_rev3" ).prop( "disabled", true );
+          return false;
+      } else{
+          $( "#btnsubmitpdf_rev3" ).prop( "disabled", false );
+      }
+  }   
+return true;
+}
+
+function validatedoc_rev3() {
+  $("#file_errordoc").html("");
+  var file_size = $('#file_inputdoc_rev3')[0].files[0].size;
+  var inputFile = document.getElementById('file_inputdoc_rev3');
+  var pathFile = inputFile.value;
+  var ekstensiOk = /(\.doc|\.docx)$/i;
+  if(!ekstensiOk.exec(pathFile)){
+      alert('Silakan upload file yang memiliki ekstensi .pdf');
+      inputFile.value = '';
+      return false;
+  }else{
+      console.log(file_size);
+      if(file_size>2097152) {
+          $("#file_errordoc_rev3").html("Ukuran File Lebih Dari 2 MB !");
+          $( "#btnsubmitdoc_rev3" ).prop( "disabled", true );
+          return false;
+      } else{
+          $( "#btnsubmitdoc_rev3" ).prop( "disabled", false );
+      }
+  }   
+return true;
+}
+
+</script>
 @endpush

@@ -312,10 +312,10 @@ function cekStatusFinalisasi_gambaranTeknologi($reviske){
     return $button;
 }
 
-function generateNamaProposalTA($nim,$ext){
+function generateNamaProposalTA($nim,$ext,$revisike){
     $mahasiswa = Mahasiswa::find($nim);
     $str_name= str_replace(" ","",$mahasiswa->nama);
-    $namafile = $nim."_ProposalTA_".$str_name."_".$mahasiswa->kelas."_".$mahasiswa->angkatan.".".$ext;
+    $namafile = $nim."_ProposalTA_R".$revisike."_".$str_name."_".$mahasiswa->kelas."_".$mahasiswa->angkatan.".".$ext;
 
     return $namafile;
 }
@@ -744,5 +744,13 @@ function cekRevisiLaporan($nim,$kode_dosen){
     $status_revisi = $revisiLaporan->status_revisi;
 
     return $status_revisi;
+}
+
+function cekberkasporposal($nim,$jenis_berkas,$revisike){
+    $cekdatadoc = App\berkasProposalTA::where('NIM', '=', $nim) 
+        ->where('jenis_berkas','=',$jenis_berkas)
+        ->where('revisike','=',$revisike)
+        ->first();
+    return $cekdatadoc;
 }
 ?>

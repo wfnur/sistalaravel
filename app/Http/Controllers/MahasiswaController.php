@@ -13,17 +13,8 @@ class MahasiswaController extends Controller
     public function index(Request $request){
         $user = \App\Mahasiswa::find(auth()->user()->username);
 
-        if ($request->has('cari')) {
-            $data_mahasiswa = \App\Mahasiswa::where('kelas','=',$request->cari)
-            ->orwhere('angkatan','LIKE','%'.$request->cari.'%')
-            ->orwhere('nim','LIKE','%'.$request->cari.'%')
-            ->orwhere('nama','LIKE','%'.$request->cari.'%')
-            ->paginate(15);
-            
-        } else {
-            $data_mahasiswa = \App\Mahasiswa::paginate(15);
-        }
-        
+        $data_mahasiswa = \App\Mahasiswa::all();
+
         //View::make('Mahasiswa.List_mahasiswa', compact('data_mahasiswa','user'));
         return view('Mahasiswa.index',compact('data_mahasiswa','user'));
     }

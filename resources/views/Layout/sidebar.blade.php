@@ -427,7 +427,7 @@
           @php } @endphp
 
           @php if(in_array("reviewer_proposalTA",$tipe_user)){ @endphp
-            <!--Proposal TA-->
+            <!--Proposal TA
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <p>Review Proposal TA </p>
@@ -455,6 +455,16 @@
                   </a>
                 </li>
               </ul>
+            </li>-->
+
+            <!--Review Proposal TA-->
+            <li class="nav-item">
+              <a href="{{url('/Review/ProposalTA')}}" class="nav-link {{ Request::getPathInfo() == "/Review/ProposalTA" ? "active" : "" }} ">
+                <i class="nav-icon fa fa-group"></i>
+                <p>
+                  Review Proposal TA
+                </p>
+              </a>
             </li>
           @php } @endphp
 

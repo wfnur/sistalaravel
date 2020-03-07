@@ -1,5 +1,18 @@
 @extends('Layout.master')
 @section('title','Buat User')
+@section('navbar')
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand bg-primary navbar-dark ">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+    </li>
+  </ul>
+
+</nav>
+<!-- /.navbar -->
+@stop
 @section('content')
 @if (session('sukses'))
     <div class="col-8" style="margin:10px auto;">

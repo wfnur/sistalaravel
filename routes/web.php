@@ -90,6 +90,13 @@ Route::group(['middleware' => ['auth','checkRole:dsn']], function () {
     Route::get('/Dosen/Profile', 'DosenController@profile');
     Route::post('/Dosen/{kode_dosen}/update', 'DosenController@update');
     Route::post('/Dosen/changePassword', 'DosenController@changePassword');
+
+    //proposal ta
+    Route::get('/Review/ProposalTA', 'reviewProposalTAController@listMahasiswa');
+    Route::get('/Review/ProposalTA/{nim}', 'reviewProposalTAController@reviewPTA');
+    Route::post('/Review/ProposalTA/create', 'reviewProposalTAController@createReviewPTA');
+
+    //Bimbingan
     Route::get('/Bimbingan/Verifikasi', 'BimbinganController@verifikasi');
     Route::get('/Bimbingan/Rekap', 'BimbinganController@rekap');
     Route::get('/Bimbingan/ListVerifikasi', 'BimbinganController@ListVerifikasi');

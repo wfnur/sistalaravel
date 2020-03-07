@@ -24,14 +24,7 @@ class DosenController extends Controller
     public function create(Request $request){
         //$user = \App\Dosen::all();
         
-        if ($request->has('cari')) {
-            $data_dosen = \App\Dosen::where('nama','LIKE','%'.$request->cari.'%')
-            ->orwhere('kode_dosen','LIKE','%'.$request->cari.'%')
-            ->paginate(20);
-            
-        } else {
-            $data_dosen = \App\Dosen::paginate(20);
-        }
+        $data_dosen = \App\Dosen::all();
         
         //View::make('Mahasiswa.List_mahasiswa', compact('data_mahasiswa','user'));
         return view('Dosen.create',compact('data_dosen','user'));

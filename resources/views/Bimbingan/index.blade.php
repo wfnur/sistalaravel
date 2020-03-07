@@ -183,7 +183,7 @@
                                             Belum Diverifikasi
                                         @endif
                                     </td>
-                                    <td> <a href="Form_Bimbingan/{{ $item->formBimbingan }}" class="btn btn-warning" target="_blank">view</a> </td>
+                                    <td> <a href="public/Form_Bimbingan/{{ $item->formBimbingan }}" class="btn btn-warning" target="_blank">view</a> </td>
                                 </tr>
                             @php $i++ @endphp   
                             @endforeach

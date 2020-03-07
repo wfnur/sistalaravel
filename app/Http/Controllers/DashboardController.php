@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\reviewPTA;
 
 class DashboardController extends Controller
 {
@@ -21,7 +22,8 @@ class DashboardController extends Controller
         ->where('status','=',1)
         ->where('status_nilaiSidang','=',1)
         ->get();
-        return view('Dashboard.mahasiswa',compact('user','revisi'));
+        $reviewPTA = reviewPTA::where('nim','=',auth()->user()->username)->first();
+        return view('Dashboard.mahasiswa',compact('user','revisi','reviewPTA'));
     }
     
 }

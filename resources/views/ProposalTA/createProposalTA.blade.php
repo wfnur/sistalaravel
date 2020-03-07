@@ -186,25 +186,25 @@
                                   <!--judul-->
                                   <div class='form-group'>
                                     <label>Judul TA</label>
-                                    <textarea cols="80" name="judul_ta" rows="3" class="form-control" ></textarea>
+                                    <textarea cols="80" name="judul_ta" rows="3" class="form-control" {{$disable}}></textarea>
                                   </div>
                                   
                                   <!--abstrak-->
                                   <div class="form-group">
                                     <label>Abstrak (max: 250 kata)</label>
-                                    <textarea cols="80" id="abstrak_ind" name="abstrak" rows="20" class="form-control"></textarea>
+                                    <textarea cols="80" id="abstrak_ind" name="abstrak" rows="20" class="form-control" {{$disable}}></textarea>
                                   </div>
 
                                   <!--keyword-->
                                   <div class='form-group'>
                                     <label>Keyword</label>
-                                    <input type="text" name="keyword" class='form-control' value=''>
+                                    <input type="text" name="keyword" class='form-control' value='' {{$disable}}>
                                   </div>
 
                                   <!--Pembimbing 1-->
                                   <div class="form-group">
                                     <label>Pembimbing 1 </label>
-                                    <select class="form-control" name="pembimbing1">
+                                    <select class="form-control" name="pembimbing1" {{$disable}}>
                                         <option value='0'>-------------------------</option>
                                         @foreach ($pembimbing1 as $p1)
                                         <option value={{$p1->kode_dosen }}> {{ $p1->nama }}</option>
@@ -215,7 +215,7 @@
                                   <!--Pembimbing 2-->
                                   <div class="form-group">
                                     <label>Pembimbing 2 </label>
-                                    <select class="form-control" name="pembimbing2">
+                                    <select class="form-control" name="pembimbing2" {{$disable}}>
                                         <option value='0'>-------------------------</option>
                                         @foreach ($pembimbing2 as $p2)
                                         <option value={{ $p2->kode_dosen }}> {{ $p2->nama }}</option>
@@ -224,7 +224,7 @@
                                   </div>
 
                                   <div class='form-group'>
-                                      <input type="submit" value="Simpan" class='btn btn-info'>
+                                      <input type="submit" value="Simpan" class='btn btn-info' {{$disable}}>
                                   </div>
                             </form>
                           </div>

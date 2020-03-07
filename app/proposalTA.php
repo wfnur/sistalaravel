@@ -10,6 +10,6 @@ class proposalTA extends Model
     protected $fillable = ['NIM','judul_ta','abstrak','keyword','revisi','pembimbing1','pembimbing2','revisi_tambahan','reviewer','udate','status_pta'];
 
     public function mahasiswa(){
-        return $this->hasMany('App\Mahasiswa','NIM','nim');
+        return $this->belongsTo('App\Mahasiswa','NIM','NIM');
     }
 }

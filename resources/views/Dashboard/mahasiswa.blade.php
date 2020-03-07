@@ -16,11 +16,7 @@
     <li class="nav-item d-none d-sm-inline-block">
         <a href="{{url('/Mahasiswa/Profile')}}" class="nav-link">Ubah Profile</a>
     </li>
-  </ul>
-
- 
-
-  
+  </ul>  
 </nav>
 <!-- /.navbar -->
 @stop
@@ -52,9 +48,7 @@
         <section class="col-12">
         <!-- Custom tabs (Charts with tabs)-->
         <div class="card">
-            
             <div class="card-body" style="padding:30px">
-                
                 <div class="row">
                     <div class="col-12">
                         <center><h1>Selamat Datang {{ $user->nama }} </h1>
@@ -74,12 +68,28 @@
     <!-- /.row (main row) -->
 
     <div class="row">
-        <div class="col-12">
+            <div class="col-6">
+                    <div class="card card-default">
+                        <div class="card-header bg-warning">
+                            <h3 class="card-title">
+                                <i class="fa fa-bullhorn"></i>
+                                Revisi Proposal TA
+                            </h3>
+                        </div>
+        
+                        <div class="card-body">
+                            <p>{!! $reviewPTA->revisi or '' !!}</p>
+                        </div>
+                    
+                    
+                    </div>
+                </div>
+        <div class="col-6">
             <div class="card card-default">
                 <div class="card-header bg-warning">
                     <h3 class="card-title">
                         <i class="fa fa-bullhorn"></i>
-                        Revisi
+                        Revisi Laporan
                     </h3>
                 </div>
 

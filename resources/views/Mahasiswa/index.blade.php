@@ -2,6 +2,19 @@
 
 @section('title','Manaje Mahasiswa')
 
+@section('navbar')
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand bg-primary navbar-dark ">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+    </li>
+  </ul>
+</nav>
+<!-- /.navbar -->
+@stop
+
 @section('content')
 @if (session('sukses'))
     <div class="col-8" style="margin:10px auto;">
@@ -53,25 +66,24 @@
                     <div class="col-4">
                         <h1>Data Mahasiswa</h1>
                     </div>
-                    <div class="col-4">
+                    <!--<div class="col-4">
                         <form class="form-inline float-right" method="GET" action="{{url('/Mahasiswa')}}" >
                             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="cari">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form>
-                    </div>
-                    <div class="col-4">
+                    </div>-->
+                    <div class="offset-3 col-4">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-right:40px;">
-                            Tambah
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
+                            Tambah Mahasiswa
                         </button>
                         <a href={{url('/Mahasiswa/CreateUser')}} class="btn btn-warning float-right">Tambah User</a>
                     </div>              
                     
             
                     <div class="col-md-12">
-                        <table class="table table-hover table-bordered table-responsive">
-                            <thead align='center' >
-                                <tr>
+                        <table class="table table-hover table-bordered table-responsive" id="listMhs_index">
+                            <thead >
                                     <th>No Urut</th>
                                     <th>NIM</th>
                                     <th>Nama</th>
@@ -83,8 +95,8 @@
                                     <th>Tempat, Tanggal Lahir</th>
                                     <th>Email</th>
                                     <th>Telepon</th>
-                                    <th colspan="2">Action</th>
-                                </tr>
+                                    <th>Action</th>
+                                    <th>Action</th>
                             </thead>
                             <tbody>
                                 @foreach ($data_mahasiswa as $item)
@@ -106,7 +118,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{$data_mahasiswa->links('vendor.pagination.bootstrap-4', ['foo' => $data_mahasiswa])}}
+                        
                     </div>
 
                 </div>
@@ -197,3 +209,22 @@
     </div>
      
 @endsection
+
+@push('scripts')  
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script>
+        $(function () {
+            $("#listMhs_index").DataTable( {
+                "order": [[ 0, "asc" ]],
+                buttons: [
+                    'excelHtml5',
+                    'pdfHtml5'
+                ]
+            } );
+        });      
+    </script>  
+@endpush    

@@ -76,7 +76,7 @@ class BimbinganController extends Controller
             
             
             if ($request->hasFile('formBimbingan')) {
-                $destinationPath = public_path() . 'Form_Bimbingan/';
+                $destinationPath = public_path() . 'public/Form_Bimbingan/';
                 $tanggalNama = Carbon::parse($request->tanggalbimbingan)->format('Ymd');;
                 $imgName = generateNamaFormBimbingan(Auth::user()->username,$request->pembimbing,$tanggalNama,$request->file('formBimbingan')->getClientOriginalExtension());
                 //return dd($imgName);
