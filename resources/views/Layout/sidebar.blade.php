@@ -142,7 +142,7 @@
               $kelas = $tahun.$mhs->kelas;
             @endphp
             
-            @if ($kelas == "3A" OR $kelas == "3B" OR $kelas == "4NK" OR $kelas == "2A" OR $kelas == "2B" OR $kelas == "2NK")
+            @if ($kelas == "3A" OR $kelas == "3B" OR $kelas == "4NK")
                 <!--Dashboard-->
                 <li class="nav-item ">
                   <a href="{{url('/Mahasiswa/Beranda')}}" class="nav-link {{ Request::getPathInfo() === "/Mahasiswa/Beranda" ? "active" : "" }} ">
@@ -247,7 +247,50 @@
                     </p>
                   </a>
                 </li>
-            @endif            
+            @endif   
+
+            @if($kelas == "2A" OR $kelas == "2B" OR $kelas == "2NK") 
+              <!--Dashboard-->
+              <li class="nav-item ">
+                  <a href="{{url('/Mahasiswa/Beranda')}}" class="nav-link {{ Request::getPathInfo() === "/Mahasiswa/Beranda" ? "active" : "" }} ">
+                    <i class="nav-icon fa fa-dashboard"></i>
+                    <p>
+                      Dashboard 
+                    </p>
+                  </a>
+                </li>
+
+                <!--Proposal PKM-->
+                <li class="nav-item has-treeview">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-book nav-icon"></i>
+                    <p>Proposal PKM</p>
+                      <i class="fa fa-angle-left pull-right" style="margin-top:5px;" ></i>
+                    </p>
+                  </a>
+
+                  <ul class="nav nav-treeview" style="display: none;">
+                    <li class="nav-item">
+                      <a href="{{url('/Proposal/PKM/R/0')}}" class="nav-link {{ Request::getPathInfo() === "/Proposal/PKM/R/0" ? "active" : "" }}">
+                        <i class="fa fa-circle-thin nav-icon"></i>
+                        <p>Revisi 0</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('/Proposal/PKM/R/1')}}" class="nav-link {{ Request::getPathInfo() === "/Proposal/PKM/R/1" ? "active" : "" }}">
+                        <i class="fa fa-circle-thin nav-icon"></i>
+                        <p>Revisi 1</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('/Proposal/PKM/R/2')}}" class="nav-link {{ Request::getPathInfo() === "/Proposal/PKM/R/2" ? "active" : "" }}">
+                        <i class="fa fa-circle-thin nav-icon"></i>
+                        <p>Revisi 2</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              @endif        
           @php } @endphp
 
           @php if(in_array("dsn",$tipe_user)){ @endphp
@@ -373,21 +416,15 @@
 
               <ul class="nav nav-treeview" style="display: none;">
                 <li class="nav-item">
-                  <a href="#" class="nav-link {{ Request::getPathInfo() === "/Proposal/TA/R0" ? "active" : "" }}">
+                  <a href="{{url('List/ReviewProposal/PKM/R/0')}}" class="nav-link {{ Request::getPathInfo() === "/List/ReviewProposal/PKM/R/0" ? "active" : "" }}">
                     <i class="fa fa-check nav-icon"></i>
-                    <p>Revisi 0</p>
+                    <p>Proposal Revisi 0</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ Request::getPathInfo() === "/Proposal/TA/R1" ? "active" : "" }}">
+                    <a href="{{url('List/ReviewProposal/PKM/R/1')}}" class="nav-link {{ Request::getPathInfo() === "/List/ReviewProposal/PKM/R/1" ? "active" : "" }}">
                     <i class="fa fa-check nav-icon"></i>
-                    <p>Revisi 1</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="fa fa-check nav-icon"></i>
-                    <p>Revisi 2</p>
+                    <p>Proposal Revisi 1</p>
                   </a>
                 </li>
               </ul>

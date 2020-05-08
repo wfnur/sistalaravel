@@ -42,8 +42,56 @@ $(document).ready(function() {
     });
   }
 
+  if($("#biaya_old").length > 0){
+    CKEDITOR.replace( 'biaya_old',{
+      height: 300,
+      toolbarGroups: [
+        {
+          "name": "basicstyles",
+          "groups": ["basicstyles"]
+        },
+        {
+          "name": "paragraph",
+          "groups": [ 'indent', 'align',  'paragraph' ] 
+        },
+        { "name": 'tools', 
+          "groups": [ 'tools' ] 
+        },
+        { "name": 'insert', 
+          "groups": [ "Table" ] 
+        },
+        { "name": 'colors',
+          "groups" : [ 'TextColor','BGColor' ] },        
+      ],
+    });
+  }
+
   if($("#jadwal_kegiatan").length > 0){
     CKEDITOR.replace( 'jadwal_kegiatan',{
+      height: 300,
+      toolbarGroups: [
+        {
+          "name": "basicstyles",
+          "groups": ["basicstyles"]
+        },
+        {
+          "name": "paragraph",
+          "groups": [ 'indent', 'align',  'paragraph' ] 
+        },
+        { "name": 'tools', 
+          "groups": [ 'tools' ] 
+        },
+        { "name": 'insert', 
+          "groups": [ "Table" ] 
+        },
+        { "name": 'colors',
+          "groups" : [ 'TextColor','BGColor' ] },        
+      ],
+    });
+  }
+
+  if($("#jadwal_kegiatan_old").length > 0){
+    CKEDITOR.replace( 'jadwal_kegiatan_old',{
       height: 300,
       toolbarGroups: [
         {
@@ -90,9 +138,57 @@ $(document).ready(function() {
     });
   }
 
-  if($("#justifikasi_anggaran_before").length > 0){
-    CKEDITOR.replace( 'justifikasi_anggaran_before',{
+  if($("#justifikasi_anggaran_old").length > 0){
+    CKEDITOR.replace( 'justifikasi_anggaran_old',{
       height: 500,
+      toolbarGroups: [
+        {
+          "name": "basicstyles",
+          "groups": ["basicstyles"]
+        },
+        {
+          "name": "paragraph",
+          "groups": [ 'indent', 'align',  'paragraph' ] 
+        },
+        { "name": 'tools', 
+          "groups": [ 'tools' ] 
+        },
+        { "name": 'insert', 
+          "groups": [ "Table" ] 
+        },
+        { "name": 'colors',
+          "groups" : [ 'TextColor','BGColor' ] },        
+      ],
+    });
+  }
+
+  if($("#susunan_organisasi").length > 0){
+    CKEDITOR.replace( 'susunan_organisasi',{
+      height: 100,
+      toolbarGroups: [
+        {
+          "name": "basicstyles",
+          "groups": ["basicstyles"]
+        },
+        {
+          "name": "paragraph",
+          "groups": [ 'indent', 'align',  'paragraph' ] 
+        },
+        { "name": 'tools', 
+          "groups": [ 'tools' ] 
+        },
+        { "name": 'insert', 
+          "groups": [ "Table" ] 
+        },
+        { "name": 'colors',
+          "groups" : [ 'TextColor','BGColor' ] },        
+      ],
+    });
+  }
+
+  if($("#susunan_organisasi_old").length > 0){
+    CKEDITOR.replace( 'susunan_organisasi_old',{
+      height: 100,
       toolbarGroups: [
         {
           "name": "basicstyles",
@@ -152,21 +248,7 @@ $(document).ready(function() {
       });
   }
 
-  if($("#pustaka_2_before").length > 0){
-    CKEDITOR.replace( 'pustaka_2_before',{
-      height: 100,
-      toolbarGroups: [
-        { "name": 'tools', 
-          "groups": [ 'tools' ] 
-        },
-        { "name": 'insert', 
-          "groups": [ "Table" ] 
-        },        
-      ],
-    });      
-  }
-
-  if($("#pustaka_2").length > 0){
+if($("#pustaka_2").length > 0){  
     CKEDITOR.replace( 'pustaka_2',{
       height: 100,
       toolbarGroups: [
@@ -177,30 +259,23 @@ $(document).ready(function() {
           "groups": [ "Table" ] 
         },        
       ],
-    });      
-  }
+    });
+}
 
-  if($("#biaya_sebelumnya").length > 0){
-    CKEDITOR.replace( 'biaya_sebelumnya',{
-      height: 100,
-      toolbarGroups: [
-        { "name": 'tools', 
-          "groups": [ 'tools' ] 
-        },    
-      ],
-    });      
-  }
+if($("#pustaka_2_old").length > 0){  
+  CKEDITOR.replace( 'pustaka_2_old',{
+    height: 100,
+    toolbarGroups: [
+      { "name": 'tools', 
+        "groups": [ 'tools' ] 
+      },
+      { "name": 'insert', 
+        "groups": [ "Table" ] 
+      },        
+    ],
+  });
+}
 
-  if($("#jadwal_kegiatan_sebelumnya").length > 0){
-    CKEDITOR.replace( 'jadwal_kegiatan_sebelumnya',{
-      height: 100,
-      toolbarGroups: [
-        { "name": 'tools', 
-          "groups": [ 'tools' ] 
-        },       
-      ],
-    });      
-  }
 
   if($("#deskripsiPoinLaporan").length > 0){
     CKEDITOR.replace( 'deskripsiPoinLaporan',{

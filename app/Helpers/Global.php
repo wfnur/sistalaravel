@@ -320,6 +320,62 @@ function generateNamaProposalTA($nim,$ext,$revisike){
     return $namafile;
 }
 
+function getNamakolomBerkas($jenisBerkas){
+    switch ($jenisBerkas) {
+        case 'LembarPengesahan':
+            return "pengesahan";
+        break;
+
+        case 'BiodataKetua':
+            return "biodata_ketua";
+        break;
+
+        case 'BiodataAnggota1':
+            return "biodata_anggota1";
+        break;
+
+        case 'BiodataAnggota2':
+            return "biodata_anggota2";
+        break;
+
+        case 'BiodataPembimbing':
+            return "biodata_pembimbing";
+        break;
+
+        case 'formSuratPernyataan':
+            return "surat_pernyataan";
+        break;
+
+        case 'gambar_ilustrasi':
+            return "gambar_ilustrasi";
+        break;
+
+        case 'gambar_blok_diagram':
+            return "gambar_blok_diagram";
+        break;
+
+        case 'gambar_blok_diagram2':
+            return "gambar_blok_diagram2";
+        break;
+
+        case 'gambar_flowchart':
+            return "gambar_flowchart";
+        break;
+        
+        default:
+        
+        break;
+    }
+}
+
+function generateNamaProposalPKM($nim,$ext,$revisike,$jenisBerkas){
+    $mahasiswa = Mahasiswa::find($nim);
+    $str_name= str_replace(" ","",$mahasiswa->nama);
+    $namafile = $nim."_".$jenisBerkas."_R".$revisike."_".$str_name."_".$mahasiswa->kelas."_".$mahasiswa->angkatan.".".$ext;
+
+    return $namafile;
+}
+
 function generateNamaLaporanTA($nim,$ext){
     $mahasiswa = Mahasiswa::find($nim);
     $str_name= str_replace(" ","",$mahasiswa->nama);
@@ -351,7 +407,6 @@ function generateNamaFormPermohonan($nim,$ext){
 
     return $namafile;
 }
-
 
 function generateNamaPengesahan($nim,$ext){
     $mahasiswa = Mahasiswa::find($nim);

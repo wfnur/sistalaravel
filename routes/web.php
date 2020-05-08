@@ -20,6 +20,8 @@ Route::get('/Login', 'AuthController@login')->name('login');
 Route::post('/postlogin', 'AuthController@postlogin');
 Route::get('/Logout', 'AuthController@logout');
 
+Route::get('kategoriReview/get', 'proposalPkmController@kategoriReview');
+Route::get('ReviewProposal/get/{revisike}/{nim}/{indikator}', 'proposalPkmController@getDataReview');
 Route::group(['middleware' => ['auth','checkRole:admin']], function () {
     Route::get('/Dashboard-Admin', 'DashboardController@admin');
     Route::get('/Mahasiswa', 'MahasiswaController@index');
@@ -73,16 +75,34 @@ Route::group(['middleware' => ['auth','checkRole:mhs']], function () {
     Route::post('/Proposal/Store/BerkasProposalTA', 'proposal_taController@storeUploadBerkas');
     //////////////////////////////////////////
 
-
+    /// Laporan
     Route::get('/Laporan/TA', 'laporanTAController@create');
     Route::get('/Laporan/Revisi', 'laporanTAController@createRevisi');
     Route::post('/LaporanTA/Store', 'laporanTAController@store');
     Route::post('/LaporanTA/Revisi/Store', 'laporanTAController@storeRevisi');
+    ////////////////////////////////////
 
+    /// Bimbingan
     Route::get('Bimbingan', 'BimbinganController@index');
     Route::get('Bimbingan/create', 'BimbinganController@create');
     Route::post('Bimbingan/store', 'BimbinganController@store');
     Route::resource('Paper', 'paperController');
+    ///////////////////
+
+    //Proposal PKM
+    Route::get('Proposal/PKM/R/{revisike}', 'proposalPkmController@proposalPkm');
+    Route::get('Proposal/PKM/{revisike}/get', 'proposalPkmController@getproposalPkm');
+    Route::post('ProposalPKM/finalisasi', 'proposalPkmController@storefinalisasi');
+    Route::post('ProposalPKM/uploadFile', 'proposalPkmController@storeUploadBerkas');
+    Route::post('ProposalPKMR0/store/dataproposal', 'proposalPkmController@storeDataProposalPKM');
+    Route::post('ProposalPKMR0/store/pendahuluan', 'proposalPkmController@storePendahuluanPKM');
+    Route::post('ProposalPKMR0/store/tinjauanPustaka', 'proposalPkmController@storetinjauanPustaka');
+    Route::post('ProposalPKMR0/store/metodePelaksanaan', 'proposalPkmController@storemetodePelaksanaan');
+    Route::post('ProposalPKMR0/store/biayaJadwal', 'proposalPkmController@storebiayaJadwal');
+    Route::post('ProposalPKMR0/store/daftarPustaka', 'proposalPkmController@storedapus');
+    Route::post('ProposalPKMR0/store/justifikasiOrganisasi', 'proposalPkmController@storeJustifikasiOrganisasi');
+    Route::post('ProposalPKMR0/store/GambaranTeknologi', 'proposalPkmController@storeGambaranTeknologi');
+    
 });
 
 Route::group(['middleware' => ['auth','checkRole:dsn']], function () {
@@ -90,6 +110,15 @@ Route::group(['middleware' => ['auth','checkRole:dsn']], function () {
     Route::get('/Dosen/Profile', 'DosenController@profile');
     Route::post('/Dosen/{kode_dosen}/update', 'DosenController@update');
     Route::post('/Dosen/changePassword', 'DosenController@changePassword');
+
+    //review proposal pkm
+    Route::get('proposalPKM/get/{nim}/{revisike}', 'proposalPkmController@proposalPKMData');
+    
+    
+    Route::get('Get/ReviewProposal/PKM/R/{revisike}/{nim}', 'proposalPkmController@getproposalPkmDetail');
+    Route::get('List/ReviewProposal/PKM/R/{revisike}', 'proposalPkmController@ListReviewProposal');
+    Route::get('ReviewProposal/PKM/R/{revisike}/{nim}', 'proposalPkmController@ReviewProposal');
+    Route::post('ReviewProposalTA/store/dataproproposal', 'proposalPkmController@storeReviewDataproposal');
 
     //proposal ta
     Route::get('/Review/ProposalTA', 'reviewProposalTAController@listMahasiswa');
@@ -123,6 +152,7 @@ Route::group(['middleware' => ['auth','checkRole:dsn']], function () {
     Route::get('/SidangTA/Nilai/List-Mahasiswa', 'sidangTAController@listMahasiswapanitia');
     Route::get('/SidangTA/Penilaian/Panitia/{nim}/{kode_dosen}', 'sidangTAController@penilaianSidangTAPanitia');
     Route::post('/Unlock/Sidang', 'sidangTAController@unlocknilaisidang');
+    
     //NIlai PKM publikasi
     Route::resource('/Nilai-PKM-Publikasi', 'nilaiPKMPublikasiController');
 
