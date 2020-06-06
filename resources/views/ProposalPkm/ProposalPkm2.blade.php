@@ -213,7 +213,7 @@
                                 SUDAH DIISI DAN DISIMPAN (dengan menekan tombol simpan sebagai draft) TERLEBIH DAHULU !!!</span>
                                 </p>
                                 <span class='btn btn-lg btn-danger' id='btnfinalisasi-dataproposal-done' style="display:none">Sudah difinalisasi</span>
-                                <input type="submit" class='btn btn-lg btn-success col-md-12' id='btnfinalisasi-dataproposal' style="display:none" value="Finalisasi"> 
+                                <input type="submit" class='btn btn-lg btn-success col-md-12' id='btnfinalisasi-dataproposal'  value="Finalisasi"> 
                             </form>
                           </div>
                       </div>
@@ -825,14 +825,26 @@
                         <input type="hidden" name="revisike" value="{{$revisike}}">
                         <input type="hidden" name="jenisBerkas" value="LembarPengesahan">
                         <div class='form-group row'>
-                              <div class='col-md-4'>
-                                <label>Lembar Pengesahan</label>
-                              </div>
-                              <div class='col-md-4'>
+                          <div class='col-md-6'>
+                            <label>Lembar Pengesahan</label>
+                            <div class="row">
+                              <div class="col-6">
                                 <input type="file" name="berkas" accept=".pdf" id='pengesahan' onchange="uploadBerkas('pengesahan')" required>
                                 <span id="pengesahan_error" style="color:#dc3545 "></span>
                               </div>
-                              <div class='col-md-4' id="locatePengesahan"></div>
+                              <div class="col-6">
+                                <div class='col-md-4' id="locatePengesahan"></div>
+                              </div>
+                            </div>
+                          </div>  
+                          <div class='col-md-2'>
+                              <label>Nilai (0 - 100)</label>
+                              <input type="text" name="nilai_pengesahan"  id="nilai_pengesahan" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_pengesahan" id="rev_pengesahan" rows="3" class="form-control" disabled></textarea>
+                          </div>                       
                         </div>
                       </form>
                       <form role="form" method='post' action='' enctype='multipart/form-data' id="formBiodataKetua">
@@ -841,13 +853,25 @@
                         <input type="hidden" name="revisike" value="{{$revisike}}">
                         <input type="hidden" name="jenisBerkas" value="BiodataKetua">
                         <div class='form-group row'>
-                              <div class='col-md-4'>
-                                <label>Biodata Ketua</label>
-                              </div>
-                              <div class='col-md-4'>
+                          <div class='col-md-6'>
+                            <label>Biodata Ketua</label>
+                            <div class="row">
+                              <div class="col-6">
                                 <input type="file" name="berkas" accept=".pdf" id='BiodataKetua' onchange="uploadBerkas('BiodataKetua')" required>
                               </div>
-                              <div class='col-md-4' id="locateBiodataKetua"></div>
+                              <div class="col-6">
+                                <div class='col-md-2' id="locateBiodataKetua" style="float:right"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='col-md-2'>
+                              <label>Nilai (0 - 100)</label>
+                              <input type="text" name="nilai_biodata_ketua"  id="nilai_biodata_ketua" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_biodata_ketua" id="rev_biodata_ketua" rows="3" class="form-control" disabled></textarea>
+                          </div>  
                         </div>
                       </form>
                       <form role="form" method='post' action='' enctype='multipart/form-data' id="formBiodataAnggota1">
@@ -856,13 +880,25 @@
                         <input type="hidden" name="revisike" value="{{$revisike}}">
                         <input type="hidden" name="jenisBerkas" value="BiodataAnggota1">
                         <div class='form-group row'>
-                              <div class='col-md-4'>
-                                <label>Biodata Anggota 1</label>
-                              </div>
-                              <div class='col-md-4'>
+                          <div class='col-md-6'>
+                            <label>Biodata Anggota 1</label>
+                            <div class="row">
+                              <div class="col-6">
                                 <input type="file" name="berkas" accept=".pdf" id='BiodataAnggota1' onchange="uploadBerkas('BiodataAnggota1')" required>
                               </div>
-                              <div class='col-md-4' id="locateBiodataAnggota1"></div>
+                              <div class="col-6">
+                                <div class='col-md-4' id="locateBiodataAnggota1"></div>
+                              </div>
+                            </div>
+                          </div>  
+                          <div class='col-md-2'>
+                              <label>Nilai (0 - 100)</label>
+                              <input type="text" name="nilai_biodata_anggota"  id="nilai_biodata_anggota" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_biodata_anggota" id="rev_biodata_anggota" rows="3" class="form-control" disabled></textarea>
+                          </div>                        
                         </div>
                       </form>
                       <form role="form" method='post' action='' enctype='multipart/form-data' id="formBiodataAnggota2">
@@ -871,13 +907,25 @@
                         <input type="hidden" name="revisike" value="{{$revisike}}">
                         <input type="hidden" name="jenisBerkas" value="BiodataAnggota2">
                         <div class='form-group row'>
-                              <div class='col-md-4'>
-                                <label>Biodata Anggota 2</label>
-                              </div>
-                              <div class='col-md-4'>
+                          <div class='col-md-6'>
+                            <label>Biodata Anggota 2</label>
+                            <div class="row">
+                              <div class="col-6">
                                 <input type="file" name="berkas" accept=".pdf" id='BiodataAnggota2' onchange="uploadBerkas('BiodataAnggota2')" required>
                               </div>
-                              <div class='col-md-4' id="locateBiodataAnggota2"></div>
+                              <div class="col-6">
+                                <div class='col-md-4' id="locateBiodataAnggota2"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='col-md-2'>
+                              <label>Nilai (0 - 100)</label>
+                              <input type="text" name="nilai_biodata_anggota2"  id="nilai_biodata_anggota2" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_biodata_anggota2" id="rev_biodata_anggota2" rows="3" class="form-control" disabled></textarea>
+                          </div> 
                         </div>
                       </form>
                       <form role="form" method='post' action='' enctype='multipart/form-data' id="formBiodataPembimbing">
@@ -886,13 +934,25 @@
                         <input type="hidden" name="revisike" value="{{$revisike}}">
                         <input type="hidden" name="jenisBerkas" value="BiodataPembimbing">
                         <div class='form-group row'>
-                              <div class='col-md-4'>
-                                <label>Biodata Pembimbing</label>
-                              </div>
-                              <div class='col-md-4'>
+                          <div class='col-md-6'>
+                            <label>Biodata Pembimbing</label>
+                            <div class="row">
+                              <div class="col-6">
                                 <input type="file" name="berkas" accept=".pdf" id='BiodataPembimbing' onchange="uploadBerkas('BiodataPembimbing')" required>
                               </div>
-                              <div class='col-md-4' id="locateBiodataPembimbing"></div>
+                              <div class="col-6">
+                                <div class='col-md-4' id="locateBiodataPembimbing"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='col-md-2'>
+                              <label>Nilai (0 - 100)</label>
+                              <input type="text" name="nilai_biodata_pembimbing"  id="nilai_biodata_pembimbing" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_biodata_pembimbing" id="rev_biodata_pembimbing" rows="3" class="form-control" disabled></textarea>
+                          </div> 
                         </div>
                       </form>
                       <form role="form" method='post' action='' enctype='multipart/form-data' id="formBiodataPembimbing">
@@ -901,148 +961,244 @@
                         <input type="hidden" name="revisike" value="{{$revisike}}">
                         <input type="hidden" name="jenisBerkas" value="SuratPernyataan">
                         <div class='form-group row'>
-                              <div class='col-md-4'>
-                                <label>Surat Pernyataan</label>
-                              </div>
-                              <div class='col-md-4'>
+                          <div class='col-md-6'>
+                            <label>Surat Pernyataan</label>
+                            <div class="row">
+                              <div class="col-6">
                                 <input type="file" name="berkas" accept=".pdf" id='SuratPernyataan' onchange="uploadBerkas('SuratPernyataan')" required>
                               </div>
-                              <div class='col-md-4' id="locateSuratPernyataan"></div>
+                              <div class="col-6">
+                                <div class='col-md-4' id="locateSuratPernyataan"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class='col-md-2'>
+                              <label>Nilai (0 - 100)</label>
+                              <input type="text" name="nilai_surat_pernyataan"  id="nilai_surat_pernyataan" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_surat_pernyataan" id="rev_surat_pernyataan" rows="3" class="form-control" disabled></textarea>
+                          </div> 
+                          
                         </div>
                       </form>
 
-                      <div class='row'>
-                        <div class='col-md-12'>
-                          <form id='finalisasiform_uploadfile'>
-                            {{ csrf_field() }}
-                            <input type="hidden" name="nim" value="{{auth()->user()->username}}">
-                            <input type="hidden" name="revisike" value="{{$revisike}}">
-                            <input type="hidden" name="nama_field" value="status_uploadFile">
-                            <p>
-                            Dengan menekan tombol dibawah ini, saya sudah yakin dengan data-data diatas dan siap untuk dinilai dan dikomentari
-                            oleh reviewer.
-                            <span style='color:red'> Setelah menekan tombol dibawah ini, data-data diatas sudah tidak bisa diubah kembali, jadi pastikan data tersebut
-                            SUDAH DIISI DAN DISIMPAN (dengan menekan tombol simpan sebagai draft) TERLEBIH DAHULU !!!</span>
-                            </p>
-                            <span class='btn btn-lg btn-danger' id='btnfinalisasi-UploadFile-done' style="display:none">Sudah difinalisasi</span>
-                            <button class='btn btn-lg btn-success col-md-12' id='btnfinalisasi-UploadFile'> Finalisasi</button>
-                          </form>
-                        </div>
-                      </div>
                     </div>
 
                     <!-- Gambaran Teknologi -->
                     <div class="tab-pane fade" id="gambaran-teknologi" role="tabpanel" aria-labelledby="gambaran-teknologi-tab">
-                      <div class="row">
-                        <div class="col-md-6">
-                            <form action="" id="formGambaranTeknologi">
-                              {{ csrf_field() }}
-                              <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
-                              <input type="hidden" name="revisike" value="{{$revisike}}">
-                              <div class='form-group row'>
-                                <div class='col-md-12'>
-                                    <label>B. Penjelasan gambar ilustrasi poin A. (narasi).</label>
-                                    <textarea id="penjelasan_ilustrasi" name="penjelasan_ilustrasi" rows="5" class="form-control"></textarea>
-                                </div>
-                              </div>
-                              <div class='form-group row'>
-                                <div class='col-md-12'>
-                                    <label>C. Spesifikasi Teknis yang Diharapkan.</label>
-                                    <textarea id="spek_teknis" name="spek_teknis" rows="5" class="form-control"></textarea>
-                                </div>
-                              </div>
-                              <div class='form-group row'>
-                                <div class='col-md-12'>
-                                    <label>E. Penjelasan blok diagram poin D. (narasi) (bila 1 topik dibagi menjadi 2 atau lebih subtopic).</label>
-                                    <textarea id="penjelasan_blok_diagram" name="penjelasan_blok_diagram" rows="5" class="form-control"></textarea>
-                                </div>
-                              </div>
-                              <div class='form-group row'>
-                                <div class='col-md-12'>
-                                    <label>G. Penjelasan blok diagram poin F. (narasi). </label>
-                                    <textarea id="penjelasan_blok_diagram2" name="penjelasan_blok_diagram2" rows="5" class="form-control"></textarea>
-                                </div>
-                              </div>
-                              <div class='form-group row'>
-                                <div class='col-md-12'>
-                                    <label>I. Penjelasan flowchart poin H. (narasi). </label>
-                                    <textarea id="penjelasan_flowchart" name="penjelasan_flowchart" rows="5" class="form-control"></textarea>
-                                </div>
-                              </div>
-                              <div class='form-group row'>
-                                <div class='col-md-12'>
-                                    <label>J. Komponen Utama yang Digunakan. </label>
-                                    <textarea id="komponen" name="komponen" rows="5" class="form-control"></textarea>
-                                </div>
-                              </div>
-                              <div class='form-group row'>
-                                <input type="submit" value="Simpan" class='btn btn-info' id="saveGambaranTeknologi">
-                              </div>
-                            </form>
-                        </div>
-                        <div class="col-md-6">
-                          <form role="form" method='post' action='' enctype='multipart/form-data' id="formGambarIlustrasi">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
-                            <input type="hidden" name="revisike" value="{{$revisike}}">
-                            <input type="hidden" name="jenisBerkas" value="gambar_ilustrasi">
-                            <div class='form-group row'>
-                              <div class='col-md-12'>
-                                <label>A. Ilustrasi system (gambar)</label>
-                              </div>
-                              <div class='col-md-6'>
+                      <!-- A -->
+                      <div class='form-group row'>
+                        <div class='col-md-6'>
+                          <label>A. Ilustrasi system (gambar)</label>
+                          <div class="row">
+                            <div class="col-6">
+                              <form role="form" method='post' action='' enctype='multipart/form-data' id="formGambarIlustrasi">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
+                                <input type="hidden" name="revisike" value="{{$revisike}}">
+                                <input type="hidden" name="jenisBerkas" value="gambar_ilustrasi">
                                 <input type="file" name="berkas" accept=".pdf" id='gambar_ilustrasi' onchange="uploadBerkas('gambar_ilustrasi')" required>
-                              </div>
+                              </form>
+                            </div>
+                            <div class="col-6">
                               <div class='col-md-6' id="locategambar_ilustrasi"></div>
                             </div>
-                          </form>
-                          <form role="form" method='post' action='' enctype='multipart/form-data' id="formGambarBlokDiagram">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
-                            <input type="hidden" name="revisike" value="{{$revisike}}">
-                            <input type="hidden" name="jenisBerkas" value="gambar_blok_diagram">
-                            <div class='form-group row'>
-                              <div class='col-md-12'>
-                                <label>D. Blok Diagram Sistem Keseluruhan (gambar) (bila 1 topik dibagi menjadi 2 atau lebih subtopic).</label>
-                              </div>
-                              <div class='col-md-6'>
+                          </div>
+                        </div>
+                        <div class='col-md-2'>
+                          <label>Nilai (0 - 100)</label>
+                          <input type="text" name="nilai_gambar_ilustrasi"  id="nilai_gambar_ilustrasi" class="form-control" disabled>
+                        </div>
+                        <div class='col-md-4'>
+                            <label>Komentar</label>
+                            <textarea name="rev_gambar_ilustrasi" id="rev_gambar_ilustrasi" rows="3" class="form-control" disabled></textarea>
+                        </div> 
+                      </div>
+                      <!-- D -->
+                      <div class='form-group row'>
+                        <div class='col-md-6'>
+                          <label>D. Blok Diagram Sistem Keseluruhan (gambar) (bila 1 topik dibagi menjadi 2 atau lebih subtopic).</label>
+                          <div class="row">
+                            <div class="col-6">
+                              <form role="form" method='post' action='' enctype='multipart/form-data' id="formGambarBlokDiagram">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
+                                <input type="hidden" name="revisike" value="{{$revisike}}">
+                                <input type="hidden" name="jenisBerkas" value="gambar_blok_diagram">
                                 <input type="file" name="berkas" accept=".pdf" id='gambar_blok_diagram' onchange="uploadBerkas('gambar_blok_diagram')" required>
-                              </div>
+                              </form>
+                            </div>
+                            <div class="col-6">
                               <div class='col-md-6' id="locategambar_blok_diagram"></div>
                             </div>
-                          </form>
-                          <form role="form" method='post' action='' enctype='multipart/form-data' id="formGambarBlokDiagram2">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
-                            <input type="hidden" name="revisike" value="{{$revisike}}">
-                            <input type="hidden" name="jenisBerkas" value="gambar_blok_diagram2">
-                            <div class='form-group row'>
-                              <div class='col-md-12'>
-                                <label>F. Blok Diagram Sistem yang dibuat (gambar).</label>
-                              </div>
-                              <div class='col-md-6'>
+                          </div>
+                        </div>
+                        <div class='col-md-2'>
+                          <label>Nilai (0 - 100)</label>
+                          <input type="text" name="nilai_gambar_blokdiagram"  id="nilai_gambar_blokdiagram" class="form-control" disabled>
+                        </div>
+                        <div class='col-md-4'>
+                            <label>Komentar</label>
+                            <textarea name="rev_gambar_blokdiagram" id="rev_gambar_blokdiagram" rows="3" class="form-control" disabled></textarea>
+                        </div> 
+                      </div>
+                      <!-- F -->
+                      <div class='form-group row'>
+                        <div class='col-md-6'>
+                          <label>F. Blok Diagram Sistem yang dibuat (gambar).</label>
+                          <div class="row">
+                            <div class="col-6">
+                              <form role="form" method='post' action='' enctype='multipart/form-data' id="formGambarBlokDiagram2">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
+                                <input type="hidden" name="revisike" value="{{$revisike}}">
+                                <input type="hidden" name="jenisBerkas" value="gambar_blok_diagram2">
                                 <input type="file" name="berkas" accept=".pdf" id='gambar_blok_diagram2' onchange="uploadBerkas('gambar_blok_diagram2')" required>
-                              </div>
+                              </form>
+                            </div>
+                            <div class="col-6">
                               <div class='col-md-6' id="locategambar_blok_diagram2"></div>
                             </div>
-                          </form>
-                          <form role="form" method='post' action='' enctype='multipart/form-data' id="formGambarFlowchart">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
-                            <input type="hidden" name="revisike" value="{{$revisike}}">
-                            <input type="hidden" name="jenisBerkas" value="gambar_flowchart">
-                            <div class='form-group row'>
-                              <div class='col-md-12'>
-                                <label>H. Flow Chart system keseluruhan dan bagian yang dibuat (gambar)</label>
-                              </div>
-                              <div class='col-md-6'>
+                          </div>
+                        </div>
+                        <div class='col-md-2'>
+                          <label>Nilai (0 - 100)</label>
+                          <input type="text" name="nilai_gambar_blokdiagram2"  id="nilai_gambar_blokdiagram2" class="form-control" disabled>
+                        </div>
+                        <div class='col-md-4'>
+                            <label>Komentar</label>
+                            <textarea name="rev_gambar_blokdiagram2" id="rev_gambar_blokdiagram2" rows="3" class="form-control" disabled></textarea>
+                        </div> 
+                      </div>
+                      <!-- H -->
+                      <div class='form-group row'>
+                        <div class='col-md-6'>
+                          <label>H. Flow Chart system keseluruhan dan bagian yang dibuat (gambar)</label>
+                          <div class="row">
+                            <div class="col-6">
+                              <form role="form" method='post' action='' enctype='multipart/form-data' id="formGambarFlowchart">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
+                                <input type="hidden" name="revisike" value="{{$revisike}}">
+                                <input type="hidden" name="jenisBerkas" value="gambar_flowchart">
                                 <input type="file" name="berkas" accept=".pdf" id='gambar_flowchart' onchange="uploadBerkas('gambar_flowchart')" required>
-                              </div>
+                              </form>
+                            </div>
+                            <div class="col-6">
                               <div class='col-md-6' id="locategambar_flowchart"></div>
                             </div>
-                          </form>
+                          </div>
                         </div>
+                        <div class='col-md-2'>
+                          <label>Nilai (0 - 100)</label>
+                          <input type="text" name="nilai_gambar_flowchart"  id="nilai_gambar_flowchart" class="form-control" disabled>
+                        </div>
+                        <div class='col-md-4'>
+                            <label>Komentar</label>
+                            <textarea name="rev_gambar_flowchart" id="rev_gambar_flowchart" rows="3" class="form-control" disabled></textarea>
+                        </div> 
                       </div>
+                      <form action="" id="formGambaranTeknologi">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="nim_ketua" value="{{auth()->user()->username}}">
+                        <input type="hidden" name="revisike" value="{{$revisike}}">
+                        <!-- B -->
+                        <div class='form-group row'>
+                          <div class='col-md-6'>
+                            <label>B. Penjelasan gambar ilustrasi poin A. (narasi).</label>
+                            <textarea id="penjelasan_ilustrasi" name="penjelasan_ilustrasi" rows="5" class="form-control"></textarea>
+                          </div>
+                          <div class='col-md-2'>
+                            <label>Nilai (0 - 100)</label>
+                            <input type="text" name="nilai_penjelasan_ilustrasi"  id="nilai_penjelasan_ilustrasi" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_penjelasan_ilustrasi" id="rev_penjelasan_ilustrasi" rows="3" class="form-control" disabled></textarea>
+                          </div> 
+                        </div>
+                        <!-- C -->
+                        <div class='form-group row'>
+                          <div class='col-md-6'>
+                            <label>C. Spesifikasi Teknis yang Diharapkan.</label>
+                            <textarea id="spek_teknis" name="spek_teknis" rows="5" class="form-control"></textarea>
+                          </div>
+                          <div class='col-md-2'>
+                            <label>Nilai (0 - 100)</label>
+                            <input type="text" name="nilai_spek_teknis"  id="nilai_spek_teknis" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_spek_teknis" id="rev_spek_teknis" rows="3" class="form-control" disabled></textarea>
+                          </div> 
+                        </div>
+                        <!-- E -->
+                        <div class='form-group row'>
+                          <div class='col-md-6'>
+                            <label>E. Penjelasan blok diagram poin D. (narasi) (bila 1 topik dibagi menjadi 2 atau lebih subtopic).</label>
+                            <textarea id="penjelasan_blok_diagram" name="penjelasan_blok_diagram" rows="5" class="form-control"></textarea>
+                          </div>
+                          <div class='col-md-2'>
+                            <label>Nilai (0 - 100)</label>
+                            <input type="text" name="nilai_penjelasan_blokdiagram"  id="nilai_penjelasan_blokdiagram" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_penjelasan_blokdiagram" id="rev_penjelasan_blokdiagram" rows="3" class="form-control" disabled></textarea>
+                          </div> 
+                        </div>
+                        <!-- G -->
+                        <div class='form-group row'>
+                          <div class='col-md-6'>
+                            <label>G. Penjelasan blok diagram poin F. (narasi). </label>
+                            <textarea id="penjelasan_blok_diagram2" name="penjelasan_blok_diagram2" rows="5" class="form-control"></textarea>
+                          </div>
+                          <div class='col-md-2'>
+                            <label>Nilai (0 - 100)</label>
+                            <input type="text" name="nilai_penjelasan_blokdiagram2"  id="nilai_penjelasan_blokdiagram2" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_penjelasan_blokdiagram2" id="rev_penjelasan_blokdiagram2" rows="3" class="form-control" disabled></textarea>
+                          </div> 
+                        </div>
+                        <!-- I -->
+                        <div class='form-group row'>
+                          <div class='col-md-6'>
+                            <label>I. Penjelasan flowchart poin H. (narasi). </label>
+                            <textarea id="penjelasan_flowchart" name="penjelasan_flowchart" rows="5" class="form-control"></textarea>
+                          </div>
+                          <div class='col-md-2'>
+                            <label>Nilai (0 - 100)</label>
+                            <input type="text" name="nilai_penjelasan_flowchart"  id="nilai_penjelasan_flowchart" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_penjelasan_flowchart" id="rev_penjelasan_flowchart" rows="3" class="form-control" disabled></textarea>
+                          </div> 
+                        </div>
+                        <!-- J -->
+                        <div class='form-group row'>
+                          <div class='col-md-6'>
+                            <label>J. Komponen Utama yang Digunakan. </label>
+                            <textarea id="komponen" name="komponen" rows="5" class="form-control"></textarea>
+                          </div>
+                          <div class='col-md-2'>
+                            <label>Nilai (0 - 100)</label>
+                            <input type="text" name="nilai_komponen"  id="nilai_komponen" class="form-control" disabled>
+                          </div>
+                          <div class='col-md-4'>
+                              <label>Komentar</label>
+                              <textarea name="rev_komponen" id="rev_komponen" rows="3" class="form-control" disabled></textarea>
+                          </div> 
+                        </div>
+                        <div class='form-group row'>
+                          <input type="submit" value="Simpan" class='btn btn-info' id="saveGambaranTeknologi">
+                        </div>
+                      </form>
+
                       <div class='row'>
                         <div class='col-md-12'>
                           <form id='finalisasiform_gambaranteknologi'>

@@ -1342,7 +1342,30 @@
                     swal("Gambaran Teknologi Berhasil Disimpan", "", "error");
                 }
               });
-          });                   
+          });  
+          
+          $('#saveGambaranTeknologi').click(function (e) {
+              e.preventDefault();
+              $.ajax({
+                data: $('#formGambaranTeknologi').serialize(),
+                url: "{{url('/ProposalPKMR0/store/GambaranTeknologi')}}",
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {                    
+                  $('#penjelasan_ilustrasi').val(data.data.penjelasan_ilustrasi);
+                  $('#spek_teknis').val(data.data.spek_teknis);
+                  $('#penjelasan_blok_diagram').val(data.data.penjelasan_blok_diagram);
+                  $('#penjelasan_blok_diagram2').val(data.data.penjelasan_blok_diagram2);
+                  $('#penjelasan_flowchart').val(data.data.penjelasan_flowchart);
+                  $('#komponen').val(data.data.komponen);
+                  swal("Gambaran Teknologi Berhasil Disimpan", "", "success");
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                    swal("Gambaran Teknologi Berhasil Disimpan", "", "error");
+                }
+              });
+          }); 
 
 
           ///////////////////////////////////////////////////////////////////////////////////////////////
